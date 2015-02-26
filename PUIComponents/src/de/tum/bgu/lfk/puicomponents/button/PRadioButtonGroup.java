@@ -3,6 +3,7 @@ package de.tum.bgu.lfk.puicomponents.button;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * The PRadioButtonGroup is for logical structuring of the PRadioButtons.
@@ -37,6 +38,7 @@ public class PRadioButtonGroup implements MouseListener{
 	}
 	
 	/**
+	 * Wrapping the ArrayList.remove().
 	 * remove the PRadioButton with the specified index.
 	 * @param index the index of the component to remove
 	 */
@@ -45,38 +47,69 @@ public class PRadioButtonGroup implements MouseListener{
 	}
 	
 	/**
+	 * Warpping the ArrayList.remove()
 	 * removes the PRadiobutton with the specified name.
 	 * @param name the name of the component to remove
 	 */
 	public void remove(String name){
-		
+		Iterator<PRadioButton> iter = components.iterator();
+		while(iter.hasNext()){
+			PRadioButton rb = (PRadioButton) iter.next();
+			if(rb.getText() == name){
+				components.remove(rb);
+			}
+		}
 	}
 	
+	/**
+	 * Wrapping the ArrayList.remove().
+	 * removes the specified PRadioButton
+	 * @param radioButton the PRadiobutton to remove
+	 */
+	public void remove(PRadioButton radioButton){
+		components.remove(radioButton);
+	}
 	
+	/**
+	 * not implemented
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * not implemented
+	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * Listens which PRadiobutton is marked by a mouse relese
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
+		
 	}
 
+	/**
+	 * not implemented
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * not implemented
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
