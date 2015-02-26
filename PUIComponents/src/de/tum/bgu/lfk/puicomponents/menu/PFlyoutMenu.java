@@ -16,6 +16,7 @@ import processing.core.PConstants;
  * TODO:</br>
  * An {@code add(Object o)} function has to be implemented.</br>
  * flyout at left, bottom and top.</br> 
+ * maybe a PRadioButtonGroup </br>
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
  * @since 23.02.2015
