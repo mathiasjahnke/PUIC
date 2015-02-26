@@ -41,7 +41,7 @@ public class PButton {
 	private float cornerRadius;
 	private float outlineWeight;
 
-	private PFont labelFont;
+	private PFont textFont;
 
 	private String text;
 
@@ -89,19 +89,19 @@ public class PButton {
 	 * @param y y-value of the buttons center point in screen coordinates
 	 * @param buttonWidth button width
 	 * @param buttonHeight button height
-	 * @param buttonLabel the button label
+	 * @param text the button label
 	 * @param p the PApplet to draw on
 	 */
 	@Deprecated
-	public PButton(float x, float y, float buttonWidth, float buttonHeight, String buttonLabel, PApplet p){
+	public PButton(float x, float y, float buttonWidth, float buttonHeight, String text, PApplet p){
 		this.p = p;
 		this.width = buttonWidth;
 		this.height = buttonHeight;
 		this.x = x;
 		this.y = y;
 		this.checked = false;
-		this.labelFont = this.p.createFont("Arial", 14, true);
-		this.text = buttonLabel;
+		this.textFont = this.p.createFont("Arial", 14, true);
+		this.text = text;
 
 		this.stroke = 0; //40
 		this.strokeHighlight = 0; //230
@@ -131,7 +131,7 @@ public class PButton {
 		this.x = x;
 		this.y = y;
 		this.checked = false;
-		this.labelFont = this.p.createFont("Arial", 14, true);
+		this.textFont = this.p.createFont("Arial", 14, true);
 		
 		this.text = text;
 
@@ -148,22 +148,20 @@ public class PButton {
 		this.adaptToLabelWidth = true;
 		this.adaptToLabelHeight = true;
 		
-		this.p.textFont(this.labelFont);
-		//System.out.println(buttonLabel.length());
+		this.p.textFont(this.textFont);
 		if(text.length() == 0){
 			this.width = 55.f;
 			this.height = 22.f;
-			//System.out.println(this.buttonWidth);
 		}else{
 			if(adaptToLabelWidth == true){
 				float textWidth = this.p.textWidth(text);
 				this.width = textWidth + 9;
-				//System.out.println(this.buttonWidth);
+				//System.out.println(this.width);
 			} 
 			if (adaptToLabelHeight == true){
 				float textHeight = this.p.textAscent() + p.textDescent();
 				this.height = textHeight + 7;
-				//System.out.println(this.buttonHeight);
+				//System.out.println(this.height);
 			}
 		}
 	}
@@ -200,8 +198,8 @@ public class PButton {
 	 * @param labelFont the new PFont
 	 */ 
 	public void setFont(PFont labelFont){
-		this.labelFont = labelFont;
-		this.p.textFont(this.labelFont);
+		this.textFont = labelFont;
+		this.p.textFont(this.textFont);
 		if(adaptToLabelWidth == true){
 			float textWidth = this.p.textWidth(text);
 			this.width = textWidth + 9;
@@ -222,7 +220,7 @@ public class PButton {
 	 */
 	public void setText(String text){
 		this.text = text;
-		this.p.textFont(this.labelFont);
+		this.p.textFont(this.textFont);
 		if(adaptToLabelWidth == true){
 			float textWidth = this.p.textWidth(text);
 			this.width = textWidth + 9;
@@ -335,7 +333,7 @@ public class PButton {
 			//button text color if clicked
 			p.fill(textColorHighlight);  
 			//drawing the button label
-			p.textFont(this.labelFont);
+			p.textFont(this.textFont);
 			
 			p.text(text, this.x, this.y - (p.textAscent() * 0.1f));
 		}
@@ -357,7 +355,7 @@ public class PButton {
 			//Button text color if NOT clicked
 			p.fill(textColor);  
 			//drawing the button label
-			p.textFont(this.labelFont);
+			p.textFont(this.textFont);
 			p.text(text, this.x, this.y - (p.textAscent() * 0.1f));
 		}
 	}
@@ -409,8 +407,8 @@ public class PButton {
 	 */
 	@Deprecated
 	public void setButtonLabel(String text, int textColor, int textColorHighlight) {
-		if(labelFont != null){
-			p.textFont(this.labelFont);
+		if(textFont != null){
+			p.textFont(this.textFont);
 		}
 		this.text = text;
 		this.textColor = textColor;
@@ -438,11 +436,11 @@ public class PButton {
 	 */
 	@Deprecated
 	public void setButtonLabel(String text, PFont buttonFont, int buttonTextColor, int buttonTextColorHighlight) {
-		if(labelFont != null){
-			p.textFont(this.labelFont);
+		if(textFont != null){
+			p.textFont(this.textFont);
 		}
 		this.text = text;
-		this.labelFont = buttonFont;
+		this.textFont = buttonFont;
 		this.textColor = buttonTextColor;
 		this.textColorHighlight = buttonTextColorHighlight;
 	}

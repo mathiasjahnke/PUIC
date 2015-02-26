@@ -24,12 +24,18 @@ public class PRadioButton extends Observable{
 	
 	private float radius;
 	
-	private int radioButtonStrokeColor;
-	private int radioButtonFillColor;
-	private int radioButtonFillColorMarked;
-	private int radioButtonLabelColor;
+	private int strokeColor;
+	private int strokeColorMarked;
+	private int fillColor;
+	private int fillColorMarked;
+	private int textColor;
+	private int textColorMarked;
 	
 	private boolean checked;
+	
+	//width and height of the whole component including the graphic and the text
+	private float componentWidth;
+	private float componentHeight;
 	
 	/**
 	 * standard constructor.
@@ -57,22 +63,30 @@ public class PRadioButton extends Observable{
 		this.checked = false;
 		this.textFont = this.p.createFont("Arial", 14, true);
 		
-		this.radioButtonStrokeColor = p.color(0);
-		this.radioButtonFillColor = p.color(255);
-		this.radioButtonFillColorMarked = this.radioButtonStrokeColor;
-		this.radioButtonLabelColor = p.color(0);
+		this.strokeColor = p.color(0);
+		this.fillColor = p.color(255);
+		this.fillColorMarked = this.strokeColor;
+		this.textColor = p.color(0);
+		
+		//Calculate component width and height
+		if((this.p.textAscent() + this.p.textDescent() <= (radius * 2))){
+			this.componentHeight = radius * 2;
+		}else{
+			this.componentHeight = this.p.textAscent() + this.p.textDescent();
+		}
+		this.componentWidth = this.p.textWidth(this.text) + radius + (this.componentHeight * 0.4f);
 	}
 	
 	/**
 	 * initializes a new radio button and places the button in the middle of the canvas.
 	 * the {@code setLocation float, float} function should be used afterwards.
 	 * @param radius the radius of the radio button
-	 * @param label the label of the radio button
+	 * @param text the label of the radio button
 	 * @param p the {@code PApplet}
 	 */
-	public PRadioButton(float radius, String label, PApplet p){
+	public PRadioButton(float radius, String text, PApplet p){
 		
-		this.text = label;
+		this.text = text;
 		this.p = p;
 		
 		this.x = p.width/2;
@@ -82,14 +96,25 @@ public class PRadioButton extends Observable{
 		this.checked = false;
 		this.textFont = this.p.createFont("Arial", 14, true);
 		
-		this.radioButtonStrokeColor = p.color(0);
-		this.radioButtonFillColor = p.color(255);
-		this.radioButtonFillColorMarked = this.radioButtonStrokeColor;
-		this.radioButtonLabelColor = p.color(0);
+		this.strokeColor = p.color(0);
+		this.fillColor = p.color(255);
+		this.fillColorMarked = this.strokeColor;
+		this.textColor = p.color(0);
+		
+		//Calculate component width and height
+		if((this.p.textAscent() + this.p.textDescent() <= (radius * 2))){
+			this.componentHeight = radius * 2;
+		}else{
+			this.componentHeight = this.p.textAscent() + this.p.textDescent();
+		}
+		this.componentWidth = this.p.textWidth(this.text) + radius + (this.componentHeight * 0.4f);
+		
+		//System.out.println(text + ": " + width + " x " + height);
+		
 	}
 	
 	/**
-	 * convenience function for expandable menu
+	 * convenience function for flyout menu
 	 * @param x 
 	 * @param y
 	 */
@@ -137,24 +162,24 @@ public class PRadioButton extends Observable{
 		if(this.checked == false){
 			p.ellipseMode(PConstants.RADIUS);
 			p.strokeWeight(1);
-			p.fill(radioButtonFillColor);
-			p.stroke(radioButtonStrokeColor);
+			p.fill(fillColor);
+			p.stroke(strokeColor);
 			p.ellipse(x, y, radius, radius);
 		}else{
 			p.ellipseMode(PConstants.RADIUS);
 			p.strokeWeight(1);
-			p.fill(radioButtonFillColor);
-			p.stroke(radioButtonStrokeColor);
+			p.fill(fillColor);
+			p.stroke(strokeColor);
 			p.ellipse(x, y, radius, radius);
 			p.ellipseMode(PConstants.CENTER);
-			p.fill(radioButtonFillColorMarked);
+			p.fill(fillColorMarked);
 			p.ellipse(x, y, radius, radius);
 		}
 		//draw label
 		p.textFont(textFont);
 		p.textAlign(PConstants.LEFT, PConstants.CENTER);
-		p.fill(radioButtonLabelColor);
-		p.text(text, x + radius + 6, y - 2);
+		p.fill(textColor);
+		p.text(text, x + radius + (this.componentHeight*0.4f), y - 1);
 	}
 	
 	/**
@@ -163,27 +188,28 @@ public class PRadioButton extends Observable{
 	 * @param x the x location of the radiobutton
 	 * @param y the y location of the radiobutton
 	 */
+	@Deprecated
 	public void draw(float x, float y){
 		if(this.checked == false){
 			p.ellipseMode(PConstants.RADIUS);
 			p.strokeWeight(1);
-			p.fill(radioButtonFillColor);
-			p.stroke(radioButtonStrokeColor);
+			p.fill(fillColor);
+			p.stroke(strokeColor);
 			p.ellipse(x, y, radius, radius);
 		}else{
 			p.ellipseMode(PConstants.RADIUS);
 			p.strokeWeight(1);
-			p.fill(radioButtonFillColor);
-			p.stroke(radioButtonStrokeColor);
+			p.fill(fillColor);
+			p.stroke(strokeColor);
 			p.ellipse(x, y, radius, radius);
 			p.ellipseMode(PConstants.CENTER);
-			p.fill(radioButtonFillColorMarked);
+			p.fill(fillColorMarked);
 			p.ellipse(x, y, radius, radius);
 		}
 		//draw label
 		p.textFont(textFont);
 		p.textAlign(PConstants.LEFT, PConstants.CENTER);
-		p.fill(radioButtonLabelColor);
+		p.fill(textColor);
 		p.text(text, x + radius + 6, y - 2);
 	}
 	
@@ -202,24 +228,61 @@ public class PRadioButton extends Observable{
 	}
 	
 	/**
-	 * sets the button colors. 
-	 * the color of the marker is the same as the stroke color.
-	 * in the main Applet the color has to be set via color(grayValue) or color(red, green, blue) etc.
+	 * sets the styling. 
+	 * in the main applet the color has to be set via color(grayValue) or color(red, green, blue) etc.
 	 * 
-	 * @param buttonStrokeColor the color of the outline stroke.
-	 * @param buttonFillColor the fill color
-	 * @param buttonLabelColor the text color
+	 * @param strokeColor the color of the outline stroke.
+	 * @param strokeColorHighlight the color of the outline stroke if marked
+	 * @param fillColor the fill color
+	 * @param fillColorHighlight the fill color if marked
 	 */
-	public void setButtonColors(int buttonStrokeColor, int buttonFillColor, int buttonLabelColor){
-		this.radioButtonStrokeColor = buttonStrokeColor;
-		this.radioButtonFillColor = buttonFillColor;
-		this.radioButtonFillColorMarked = buttonStrokeColor;
-		this.radioButtonLabelColor = buttonLabelColor;
+	public void setStyling(int strokeColor, int strokeColorHighlight, int fillColor, int fillColorHighlight){
+		this.strokeColor = strokeColor;
+		this.fillColor = fillColor;
+		this.strokeColorMarked = strokeColorHighlight;
+		this.fillColorMarked = fillColorHighlight;
 	
 	}
 	
+	/**
+	 * sets the text styling.
+	 * in the main applet the color has to be set via color(grayValue) or color(red, green, blue) etc.
+	 * the textFont can be null.
+	 * @param textColor the text color 
+	 * @param textColorHighlight the text color if marked
+	 * @param textFont the font of the text
+	 */
+	public void setTextStyling(int textColor, int textColorHighlight, PFont textFont){
+		this.textColor = textColor;
+		this.textColorMarked = textColorHighlight;
+		if(textFont != null){
+			this.textFont = textFont;
+		}
+		
+	}
+	
+	/**
+	 * returns the PRadioButton text
+	 * @return the text as string
+	 */
 	public String getText(){
 		return this.text;
+	}
+	
+	/**
+	 * returns the components height. Based on the text length and the radius
+	 * @return the components width
+	 */
+	public float getComponentWidth(){
+		return this.componentWidth;
+	}
+	
+	/**
+	 * returns the components width. based on the text height or the radius
+	 * @return the components height
+	 */
+	public float getComponentHeight(){
+		return this.componentHeight;
 	}
 
 }

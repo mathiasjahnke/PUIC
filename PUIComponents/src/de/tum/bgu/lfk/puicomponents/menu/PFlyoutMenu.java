@@ -12,8 +12,10 @@ import processing.core.PConstants;
 
 /**
  * having a button with a icon at the top, left, bottom or right which expands on clicking. 
- * after expanding it give some possibilities to set value or so.  
- * An {@code addElements(Object o)} function has to be implemented.
+ * after expanding it give some possibilities to set value or so.</br>  
+ * TODO:</br>
+ * An {@code add(Object o)} function has to be implemented.</br>
+ * flyout at left, bottom and top.</br> 
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
  * @since 23.02.2015
@@ -35,8 +37,6 @@ public class PFlyoutMenu implements MouseListener{
 	
 	private FlyoutMenuOptions where;
 	
-	private float easing;
-	
 	//Styling
 	private Integer stroke;
 	private Integer strokeHighlight;
@@ -46,6 +46,8 @@ public class PFlyoutMenu implements MouseListener{
 	
 	//add other components
 	private ArrayList<PRadioButton> components;
+	private float componentsMaxWidth;
+	private float componentsMaxHeight;
 	
 	/**
 	 * 
@@ -63,8 +65,7 @@ public class PFlyoutMenu implements MouseListener{
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		
-		this.easing = 0.25f;
+
 		this.where = FlyoutMenuOptions.LEFT;
 		this.checked = false;
 		
@@ -75,6 +76,8 @@ public class PFlyoutMenu implements MouseListener{
 		this.handleHeight = 30;
 		
 		this.components = new ArrayList<PRadioButton>();
+		this.componentsMaxHeight = 0;
+		this.componentsMaxWidth = 0;
 	}
 	
 	/**
@@ -225,42 +228,75 @@ public class PFlyoutMenu implements MouseListener{
 	}
 	
 	/**
-	 * adds a component to the expandable menu. 
+	 * indicates if the mouse is inside the flyout menu box
+	 * @param x the mouse position
+	 * @param y the mouse position
+	 */
+	private boolean isInsideMenuBox(float x, float y){
+		boolean returnValue = false;
+		switch(this.where){
+		case LEFT:
+			if(this.checked){
+				//x is inside
+				if ((x >= this.p.width - this.width) && (x <= this.p.width)) {
+					//y is inside 
+					if ((y >= this.y - this.handleHeight/2) && (y <= this.y + this.height)) {
+						returnValue = true;
+					}
+				}
+			}
+			break;
+		case RIGHT:
+			// TODO to implement
+			System.out.println("RIGHT not yet implemented");
+			break;
+			
+		case TOP:
+			//TODO to implement
+			System.out.println("TOP not yet implemented");
+			break;
+			
+		case BOTTOM:
+			//TODO to implement
+			System.out.println("BOTTOM not yet implemented");
+			break;
+		}// end switch
+		
+		return returnValue;
+		
+	}
+	
+	/**
+	 * adds a component to the flyout menu. 
 	 * at the moment only working for {@code PRadioButtons}
 	 * @param prb the {@code PRadioButtons} to add
 	 */ 
 	public void add(PRadioButton prb){
-		prb.setLocation(this.p.width - this.width + 15, this.y + (components.size() * 20));
-		components.add(prb);
+		if(this.componentsMaxWidth < prb.getComponentWidth()){
+			this.componentsMaxWidth = prb.getComponentWidth();
+			this.width = this.componentsMaxWidth * 1.5f;
+		}
+		if(this.componentsMaxHeight < prb.getComponentHeight()){
+			this.componentsMaxHeight = prb.getComponentHeight();
+		}
+		
+		this.components.add(prb);
+		this.height = (components.size() * componentsMaxHeight * 1.3f) + (handleHeight/2);
+		for (int i = 0; i < components.size(); i++){
+			this.components.get(i).setLocation(this.p.width - this.width + (this.componentsMaxHeight*1.3f), this.y + (i * (this.componentsMaxHeight*1.3f)));
+		}
 	}
 	
 	/**
-	 * the mouse listener to open or close the menu
+	 * <b>not implemented.</b>
+	 * As the comments note, you're often better off listening for mousePressed 
+	 * or mouseReleased rather than mouseClicked because for mouseClicked to work, 
+	 * the press and release must be from the same point, and if the mouse shifts 
+	 * even a slight amount, the click won't register.
+	 * from (http://stackoverflow.com/questions/7340001/determine-clicked-jpanel-component-in-the-mouselistener-event-handling)
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		//System.out.println("Clicked at x= " + e.getX() + " y=" + e.getY());
-		if(isInside(e.getX(), e.getY())){
-			toggleChecked();
-		}
-		
-		if(checked == true){
-			Iterator<PRadioButton> iter = components.iterator();
-			boolean value = false;
-			while(iter.hasNext()){
-				PRadioButton rb = (PRadioButton) iter.next();
-				if(rb.isInside(e.getX(), e.getY())){
-					value = true;
-				}
-			}
-			if(value){
-				iter= components.iterator();
-				while (iter.hasNext()){
-					PRadioButton rb = (PRadioButton) iter.next();
-					rb.toggleChecked();
-				}
-			}
-		}
 	}
 	
 	/**
@@ -277,13 +313,30 @@ public class PFlyoutMenu implements MouseListener{
 	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
+		if(isInside(e.getX(), e.getY())){
+			toggleChecked();
+		}
 	}
 
 	/**
-	 * not implemented
+	 * the mouse listener to open or close the menu and toggle the PRadioButtons
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		//System.out.println("Clicked at x= " + e.getX() + " y=" + e.getY());
+		if(checked == true && isInsideMenuBox(e.getX(), e.getY())){
+			Iterator<PRadioButton> iter = components.iterator();
+			while(iter.hasNext()){
+				PRadioButton rb = (PRadioButton) iter.next();
+				if(rb.isInside(e.getX(), e.getY())){
+					rb.setChecked(true);
+				}else{
+					if(rb.isChecked()){
+						rb.setChecked(false);
+					}
+				}
+			}
+		}
 	}
 	
 	/**

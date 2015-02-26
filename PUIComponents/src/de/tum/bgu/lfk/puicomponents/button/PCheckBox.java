@@ -23,8 +23,8 @@ public class PCheckBox {
 	
 	private float checkBoxSize; //always a square
 	
-	private String label;
-	private PFont labelFont; 
+	private String text;
+	private PFont textFont; 
 	
 	private boolean checked;
 	
@@ -50,8 +50,8 @@ public class PCheckBox {
 		this.x = x;
 		this.y = y;
 		this.checkBoxSize = checkBoxSize;
-		this.label = label;
-		this.labelFont = this.p.createFont("Arial", 14, true);
+		this.text = label;
+		this.textFont = this.p.createFont("Arial", 14, true);
 		this.checked = false;
 		this.markerSymbol = CheckBoxOptions.TICKMARK;
 	}
@@ -118,9 +118,9 @@ public class PCheckBox {
 		p.rectMode(PConstants.CENTER);
 		//draw the box and the label
 		p.textAlign(PConstants.LEFT, PConstants.CENTER);
-		p.textFont(this.labelFont);
+		p.textFont(this.textFont);
 		p.fill(0);
-		p.text(label, x + checkBoxSize/2 + 5, y - 2);
+		p.text(text, x + checkBoxSize/2 + 5, y - 2);
 
 		p.fill(255);
 		p.strokeWeight(1);
