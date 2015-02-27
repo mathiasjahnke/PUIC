@@ -156,6 +156,7 @@ public class PFlyoutMenu implements MouseListener{
 				p.fill(this.fill);
 				p.strokeWeight(1);
 				p.rect(this.p.width - this.width/2, this.y + this.height/2 - this.handleHeight/2, this.width, this.height);
+				
 				Iterator<PRadioButton> iter = components.iterator();
 				while(iter.hasNext()){
 					PRadioButton prb = (PRadioButton) iter.next();
@@ -229,7 +230,7 @@ public class PFlyoutMenu implements MouseListener{
 	}
 	
 	/**
-	 * indicates if the mouse is inside the flyout menu box
+	 * indicates if the mouse is inside the opened flyout menu box
 	 * @param x the mouse position
 	 * @param y the mouse position
 	 */
@@ -269,7 +270,8 @@ public class PFlyoutMenu implements MouseListener{
 	
 	/**
 	 * adds a component to the flyout menu. 
-	 * at the moment only working for {@code PRadioButtons}
+	 * at the moment only working for {@code PRadioButtons}.
+	 * for mouseEventHandling see the PRadioButtonGroup
 	 * @param prb the {@code PRadioButtons} to add
 	 */ 
 	public void add(PRadioButton prb){
@@ -301,54 +303,47 @@ public class PFlyoutMenu implements MouseListener{
 	}
 	
 	/**
-	private void notifyObservers(){
-		Iterator<Observer> i = observers.iterator();
-		while(i.hasNext()){
-			Observer o = (Observer) i.next();
-			o.update(this);
-		}
-	}**/
-
-	/**
-	 * not implemented
+	 * to open or close the flyout menu on a mouse release event
 	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(isInside(e.getX(), e.getY())){
 			toggleChecked();
+		}else if(!isInsideMenuBox(e.getX(), e.getY())){
+			setChecked(false);
 		}
 	}
 
 	/**
-	 * the mouse listener to open or close the menu and toggle the PRadioButtons
+	 * <b>not implemented.</b>
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		//System.out.println("Clicked at x= " + e.getX() + " y=" + e.getY());
-		if(checked == true && isInsideMenuBox(e.getX(), e.getY())){
-			Iterator<PRadioButton> iter = components.iterator();
-			while(iter.hasNext()){
-				PRadioButton rb = (PRadioButton) iter.next();
-				if(rb.isInside(e.getX(), e.getY())){
-					rb.setChecked(true);
-				}else{
-					if(rb.isChecked()){
-						rb.setChecked(false);
-					}
-				}
-			}
-		}
+//		//System.out.println("Clicked at x= " + e.getX() + " y=" + e.getY());
+//		if(checked == true && isInsideMenuBox(e.getX(), e.getY())){
+//			Iterator<PRadioButton> iter = components.iterator();
+//			while(iter.hasNext()){
+//				PRadioButton rb = (PRadioButton) iter.next();
+//				if(rb.isInside(e.getX(), e.getY())){
+//					rb.setChecked(true);
+//				}else{
+//					if(rb.isChecked()){
+//						rb.setChecked(false);
+//					}
+//				}
+//			}
+//		}
 	}
 	
 	/**
-	 * not implemented.
+	 * <b>not implemented.</b>
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
 
 	/**
-	 * not implemented.
+	 * <b>not implemented.</b>
 	 */
 	@Override
 	public void mouseExited(MouseEvent e) {

@@ -17,7 +17,7 @@ public class PRadioButtonGroup implements MouseListener{
 
 	private ArrayList<PRadioButton> components;
 	
-	private int indexOfMarked;
+	//private int indexOfMarked;
 	private String nameOfMarked;
 	
 	/**
@@ -25,7 +25,7 @@ public class PRadioButtonGroup implements MouseListener{
 	 */
 	public PRadioButtonGroup(){
 		components = new ArrayList<PRadioButton>();
-		indexOfMarked = 0;
+		//indexOfMarked = 0;
 		nameOfMarked = "";
 	}
 	
@@ -34,6 +34,9 @@ public class PRadioButtonGroup implements MouseListener{
 	 * @param radioButton the PRadioButton to add
 	 */
 	public void add(PRadioButton radioButton){
+		if(radioButton.isChecked()){
+			nameOfMarked = radioButton.getText();
+		}
 		components.add(radioButton);
 	}
 	
@@ -47,7 +50,7 @@ public class PRadioButtonGroup implements MouseListener{
 	}
 	
 	/**
-	 * Warpping the ArrayList.remove()
+	 * Wrapping the ArrayList.remove()
 	 * removes the PRadiobutton with the specified name.
 	 * @param name the name of the component to remove
 	 */
@@ -89,12 +92,19 @@ public class PRadioButtonGroup implements MouseListener{
 	}
 	
 	/**
-	 * Listens which PRadiobutton is marked by a mouse relese
+	 * Listens which PRadiobutton is marked by a mouse release
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		Iterator<PRadioButton> iter = components.iterator();
+		while(iter.hasNext()){
+			PRadioButton rb = (PRadioButton) iter.next();
+			if(rb.isInside(e.getX(), e.getY())){
+				nameOfMarked = rb.getText();
+			}
+		}
+		updateComponents();
 		
 	}
 
@@ -115,5 +125,19 @@ public class PRadioButtonGroup implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	/**
+	 * updates the components only one per PRadioButtonGroup can be marked
+	 */
+	private void updateComponents(){
+		Iterator<PRadioButton> iter = components.iterator();
+		while(iter.hasNext()){
+			PRadioButton rb = (PRadioButton) iter.next();
+			if(rb.getText() == nameOfMarked){
+				rb.setChecked(true);
+			}else{
+				rb.setChecked(false);
+			}
+		}
+	}
 }
