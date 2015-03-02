@@ -12,7 +12,7 @@ import java.util.Iterator;
  * @version 0.0.1
  * @since 23.02.2015
  */
-public class PRadioButtonGroup implements MouseListener{
+public class PButtonGroup implements MouseListener{
 
 	private ArrayList<PIButton> components;
 	
@@ -21,7 +21,7 @@ public class PRadioButtonGroup implements MouseListener{
 	/**
 	 * initializes the PRadioButtonGroup
 	 */
-	public PRadioButtonGroup(){
+	public PButtonGroup(){
 		components = new ArrayList<PIButton>();
 		//indexOfMarked = 0;
 		nameOfMarked = "";
