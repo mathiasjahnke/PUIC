@@ -12,7 +12,7 @@ import processing.core.PFont;
  * @version 0.0.1
  * @since 12.02.2015
  */
-public class PRadioButton extends Observable{
+public class PRadioButton extends Observable implements PIButton{
 	
 	private PApplet p;
 	
@@ -127,6 +127,7 @@ public class PRadioButton extends Observable{
 	 * can be set via mouseClicked() function to indicate if the button is checked (marked)
 	 * @param checked boolean true if checked otherwise false
 	 */
+	@Override
 	public void setChecked(boolean checked){
 		setChanged();
 		this.checked = checked;
@@ -265,6 +266,7 @@ public class PRadioButton extends Observable{
 	 * returns the PRadioButton text
 	 * @return the text as string
 	 */
+	@Override
 	public String getText(){
 		return this.text;
 	}

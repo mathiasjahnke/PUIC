@@ -11,20 +11,18 @@ import java.util.Iterator;
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
  * @since 23.02.2015
- *
  */
 public class PRadioButtonGroup implements MouseListener{
 
-	private ArrayList<PRadioButton> components;
+	private ArrayList<PIButton> components;
 	
-	//private int indexOfMarked;
 	private String nameOfMarked;
 	
 	/**
 	 * initializes the PRadioButtonGroup
 	 */
 	public PRadioButtonGroup(){
-		components = new ArrayList<PRadioButton>();
+		components = new ArrayList<PIButton>();
 		//indexOfMarked = 0;
 		nameOfMarked = "";
 	}
@@ -55,7 +53,7 @@ public class PRadioButtonGroup implements MouseListener{
 	 * @param name the name of the component to remove
 	 */
 	public void remove(String name){
-		Iterator<PRadioButton> iter = components.iterator();
+		Iterator<PIButton> iter = components.iterator();
 		while(iter.hasNext()){
 			PRadioButton rb = (PRadioButton) iter.next();
 			if(rb.getText() == name){
@@ -97,9 +95,9 @@ public class PRadioButtonGroup implements MouseListener{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Iterator<PRadioButton> iter = components.iterator();
+		Iterator<PIButton> iter = components.iterator();
 		while(iter.hasNext()){
-			PRadioButton rb = (PRadioButton) iter.next();
+			PIButton rb = (PIButton) iter.next();
 			if(rb.isInside(e.getX(), e.getY())){
 				nameOfMarked = rb.getText();
 			}
@@ -130,9 +128,9 @@ public class PRadioButtonGroup implements MouseListener{
 	 * updates the components only one per PRadioButtonGroup can be marked
 	 */
 	private void updateComponents(){
-		Iterator<PRadioButton> iter = components.iterator();
+		Iterator<PIButton> iter = components.iterator();
 		while(iter.hasNext()){
-			PRadioButton rb = (PRadioButton) iter.next();
+			PIButton rb = (PIButton) iter.next();
 			if(rb.getText() == nameOfMarked){
 				rb.setChecked(true);
 			}else{

@@ -14,7 +14,7 @@ import processing.core.PFont;
  * @version 0.0.2
  * @since 12.06.2014
  */
-public class PButton {
+public class PButton implements PIButton{
 	private PApplet p;
 	
 	//adapt the button width and height to the width and height of the label
@@ -170,6 +170,7 @@ public class PButton {
 	 * set to true if the button is clicked
 	 * @param clicked 
 	 */
+	@Override
 	public void setChecked(boolean clicked) {
 		this.checked = clicked;
 	}
@@ -237,6 +238,7 @@ public class PButton {
 	 * return the text to display with the button
 	 * @return String 
 	 */
+	@Override
 	public String getText() {
 		return this.text;
 	}
@@ -454,6 +456,7 @@ public class PButton {
 	 * @param y the y coordinate
 	 * @return true if inside otherwise false
 	 */
+	@Override
 	public boolean isInside(float x, float y) {
 		boolean returnValue = false;
 		//x is inside
