@@ -12,7 +12,7 @@ import processing.core.PFont;
  * @version 0.0.1
  * @since 12.02.2015
  */
-public class PRadioButton extends Observable implements PIButton{
+public class PRadioButton extends Observable implements PIButton, PIComponent{
 	
 	private PApplet p;
 	
@@ -118,6 +118,7 @@ public class PRadioButton extends Observable implements PIButton{
 	 * @param x 
 	 * @param y
 	 */
+	@Override
 	public void setLocation(float x, float y){
 		this.x = x;
 		this.y = y;
@@ -138,6 +139,7 @@ public class PRadioButton extends Observable implements PIButton{
 	 * queries the status of the radio button
 	 * @return boolean true if checked otherwise false
 	 */
+	@Override
 	public boolean isChecked(){
 		return this.checked;
 	}
@@ -220,6 +222,7 @@ public class PRadioButton extends Observable implements PIButton{
 	 * @param y
 	 * @return true if inside otherwise false
 	 */
+	@Override
 	public boolean isInside(float x, float y){
 		if(PApplet.dist(this.x, this.y, x, y) < this.radius){
 			return true;
@@ -275,6 +278,7 @@ public class PRadioButton extends Observable implements PIButton{
 	 * returns the components height. Based on the text length and the radius
 	 * @return the components width
 	 */
+	@Override
 	public float getComponentWidth(){
 		return this.componentWidth;
 	}
@@ -283,6 +287,7 @@ public class PRadioButton extends Observable implements PIButton{
 	 * returns the components width. based on the text height or the radius
 	 * @return the components height
 	 */
+	@Override
 	public float getComponentHeight(){
 		return this.componentHeight;
 	}

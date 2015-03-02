@@ -22,20 +22,20 @@ public class PButtonGroup implements MouseListener{
 	 * initializes the PRadioButtonGroup
 	 */
 	public PButtonGroup(){
-		components = new ArrayList<PIButton>();
+		this.components = new ArrayList<PIButton>();
 		//indexOfMarked = 0;
 		nameOfMarked = "";
 	}
 	
 	/**
 	 * adds components to the PRadioButtonGroup.
-	 * @param radioButton the PRadioButton to add
+	 * @param component the PRadioButton to add
 	 */
-	public void add(PRadioButton radioButton){
-		if(radioButton.isChecked()){
-			nameOfMarked = radioButton.getText();
+	public void add(PIButton component){
+		if(component.isChecked()){
+			this.nameOfMarked = component.getText();
 		}
-		components.add(radioButton);
+		this.components.add(component);
 	}
 	
 	/**
@@ -44,7 +44,7 @@ public class PButtonGroup implements MouseListener{
 	 * @param index the index of the component to remove
 	 */
 	public void remove(int index){
-		components.remove(index);
+		this.components.remove(index);
 	}
 	
 	/**
@@ -53,11 +53,11 @@ public class PButtonGroup implements MouseListener{
 	 * @param name the name of the component to remove
 	 */
 	public void remove(String name){
-		Iterator<PIButton> iter = components.iterator();
+		Iterator<PIButton> iter = this.components.iterator();
 		while(iter.hasNext()){
-			PRadioButton rb = (PRadioButton) iter.next();
+			PIButton rb = (PIButton) iter.next();
 			if(rb.getText() == name){
-				components.remove(rb);
+				this.components.remove(rb);
 			}
 		}
 	}
@@ -65,10 +65,10 @@ public class PButtonGroup implements MouseListener{
 	/**
 	 * Wrapping the ArrayList.remove().
 	 * removes the specified PRadioButton
-	 * @param radioButton the PRadiobutton to remove
+	 * @param component the PRadiobutton to remove
 	 */
-	public void remove(PRadioButton radioButton){
-		components.remove(radioButton);
+	public void remove(PIButton component){
+		this.components.remove(component);
 	}
 	
 	/**
@@ -128,10 +128,10 @@ public class PButtonGroup implements MouseListener{
 	 * updates the components only one per PRadioButtonGroup can be marked
 	 */
 	private void updateComponents(){
-		Iterator<PIButton> iter = components.iterator();
+		Iterator<PIButton> iter = this.components.iterator();
 		while(iter.hasNext()){
 			PIButton rb = (PIButton) iter.next();
-			if(rb.getText() == nameOfMarked){
+			if(rb.getText() == this.nameOfMarked){
 				rb.setChecked(true);
 			}else{
 				rb.setChecked(false);

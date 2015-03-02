@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import de.tum.bgu.lfk.puicomponents.button.PIComponent;
 import de.tum.bgu.lfk.puicomponents.button.PRadioButton;
 import de.tum.bgu.lfk.puicomponents.constants.FlyoutMenuOptions;
 import processing.core.PApplet;
@@ -14,7 +15,7 @@ import processing.core.PConstants;
  * having a button with a icon at the top, left, bottom or right which expands on clicking. 
  * after expanding it give some possibilities to set value or so.</br>  
  * TODO:</br>
- * An {@code add(Object o)} function has to be implemented.</br>
+ * An {@code add(Object o)} function has to be implemented. Implementing against an interface</br>
  * flyout at left, bottom and top.</br> 
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
@@ -45,7 +46,7 @@ public class PFlyoutMenu implements MouseListener{
 	private float cornerRadius;
 	
 	//add other components
-	private ArrayList<PRadioButton> components;
+	private ArrayList<PIComponent> components;
 	private float componentsMaxWidth;
 	private float componentsMaxHeight;
 	
@@ -75,7 +76,7 @@ public class PFlyoutMenu implements MouseListener{
 		this.handleWidth = 20;
 		this.handleHeight = 30;
 		
-		this.components = new ArrayList<PRadioButton>();
+		this.components = new ArrayList<PIComponent>();
 		this.componentsMaxHeight = 0;
 		this.componentsMaxWidth = 0;
 	}
@@ -156,9 +157,9 @@ public class PFlyoutMenu implements MouseListener{
 				p.strokeWeight(1);
 				p.rect(this.p.width - this.width/2, this.y + this.height/2 - this.handleHeight/2, this.width, this.height);
 				
-				Iterator<PRadioButton> iter = components.iterator();
+				Iterator<PIComponent> iter = components.iterator();
 				while(iter.hasNext()){
-					PRadioButton prb = (PRadioButton) iter.next();
+					PIComponent prb = (PIComponent) iter.next();
 					prb.draw();
 				}
 			}
@@ -271,18 +272,18 @@ public class PFlyoutMenu implements MouseListener{
 	 * adds a component to the flyout menu. 
 	 * at the moment only working for {@code PRadioButtons}.
 	 * for mouseEventHandling see the PRadioButtonGroup
-	 * @param prb the {@code PRadioButtons} to add
+	 * @param pic the {@code PRadioButtons} to add
 	 */ 
-	public void add(PRadioButton prb){
-		if(this.componentsMaxWidth < prb.getComponentWidth()){
-			this.componentsMaxWidth = prb.getComponentWidth();
+	public void add(PIComponent pic){
+		if(this.componentsMaxWidth < pic.getComponentWidth()){
+			this.componentsMaxWidth = pic.getComponentWidth();
 			this.width = this.componentsMaxWidth * 1.5f;
 		}
-		if(this.componentsMaxHeight < prb.getComponentHeight()){
-			this.componentsMaxHeight = prb.getComponentHeight();
+		if(this.componentsMaxHeight < pic.getComponentHeight()){
+			this.componentsMaxHeight = pic.getComponentHeight();
 		}
 		
-		this.components.add(prb);
+		this.components.add(pic);
 		this.height = (components.size() * componentsMaxHeight * 1.3f) + (handleHeight/2);
 		for (int i = 0; i < components.size(); i++){
 			this.components.get(i).setLocation(this.p.width - this.width + (this.componentsMaxHeight*1.3f), this.y + (i * (this.componentsMaxHeight*1.3f)));
