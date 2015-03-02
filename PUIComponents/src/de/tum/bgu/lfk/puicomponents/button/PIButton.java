@@ -1,7 +1,7 @@
 package de.tum.bgu.lfk.puicomponents.button;
 
 /**
- * 
+ * the Interface to handle different buttons in the PButtonGroup class
  * @author @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Department of Cartography</a>
  * @version 0.0.1
  * @since 02.03.2015
