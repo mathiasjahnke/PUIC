@@ -2,7 +2,7 @@ package de.tum.bgu.lfk.puicomponents.button;
 
 /**
  * the components interface
- * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Department of Cartography</a>
+ * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
  * @since 02.03.2015
  *

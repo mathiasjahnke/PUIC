@@ -10,7 +10,7 @@ import processing.core.PFont;
  * action handling should by done via the e.g. mouseClicked() functions etc. </br>
  * at the moment the button does not adjust themself to the caption (text) </br>
  * 
- * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Department of Cartography</a>
+ * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.2
  * @since 12.06.2014
  */
