@@ -14,8 +14,10 @@ import processing.core.PConstants;
  * having a button with a icon at the top, left, bottom or right which expands on clicking. 
  * after expanding it give some possibilities to set value or so.</br>  
  * TODO:</br>
- * An {@code add(Object o)} function has to be implemented. Implementing against an interface</br>
- * flyout at left, bottom and top.</br> 
+ * flyout at bottom and top.</br> 
+ * flyout self adopting </br>
+ * something like a flyout menu group with an equal gravity and the opend one is drawn on top of the rest. </br>
+ * aligning of components horizontal or vertical and left or right.</br>
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
  * @since 23.02.2015
@@ -35,7 +37,7 @@ public class PFlyoutMenu implements MouseListener{
 	
 	private boolean checked; //menu opened or closed
 	
-	private FlyoutMenuOptions where;
+	private FlyoutMenuOptions gravity;
 	
 	//Styling
 	private Integer stroke;
@@ -50,12 +52,13 @@ public class PFlyoutMenu implements MouseListener{
 	private float componentsMaxHeight;
 	
 	/**
-	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param p
+	 * constructs an flyout menu which is self adopting to the size of added components. 
+	 * the default gravity is set to RIGHT.
+	 * @param x the x position used if gravity is set to TOP or BOTTOM
+	 * @param y the y position used if gravity is set to LEFT or RIGHT
+	 * @param width the initial width of the flyout menu
+	 * @param height the initial height of the flyout menu
+	 * @param p the PApplet to draw on
 	 */
 	public PFlyoutMenu(float x, float y, float width, float height, PApplet p){
 		
@@ -66,7 +69,7 @@ public class PFlyoutMenu implements MouseListener{
 		this.width = width;
 		this.height = height;
 
-		this.where = FlyoutMenuOptions.LEFT;
+		this.gravity = FlyoutMenuOptions.RIGHT;
 		this.checked = false;
 		
 		this.stroke = p.color(150);
@@ -139,13 +142,23 @@ public class PFlyoutMenu implements MouseListener{
 		this.handleWidth = handleWidth;
 		this.handleHeight = handleHeight;
 	}
+	
+	/**
+	 * sets where to put the flyout menu. default value is left
+	 * @param gravity left, right, top or bottom
+	 */
+	public void setGravity(FlyoutMenuOptions gravity){
+		this.gravity = gravity;
+	}
 
 	/**
 	 * draws the menu.
 	 */
 	public void draw(){
 		p.rectMode(PConstants.CENTER);
-		if(where == FlyoutMenuOptions.LEFT){ // only y is important
+		//if(where == FlyoutMenuOptions.LEFT){ 
+		switch(this.gravity){
+		case RIGHT:  								// only y is important
 			if(checked == false){
 				drawHandle(this.p.width, this.y);
 			}else{
@@ -162,6 +175,39 @@ public class PFlyoutMenu implements MouseListener{
 					prb.draw();
 				}
 			}
+			break;
+			
+		case BOTTOM:
+			//TODO
+			System.out.println("draw not yet implemented");
+			break;
+			
+		case LEFT:
+			if(checked == false){
+				drawHandle(0, this.y);
+			}else{
+				drawHandle(this.width, this.y);
+				p.rectMode(PConstants.CENTER);
+				p.stroke(this.stroke);
+				p.fill(this.fill);
+				p.strokeWeight(1);
+				p.rect(this.width/2, this.y + this.height/2 - this.handleHeight/2, this.width, this.height);
+				
+				Iterator<PIComponent> iter = components.iterator();
+				while(iter.hasNext()){
+					PIComponent prb = (PIComponent) iter.next();
+					prb.draw();
+				}
+			}
+			break;
+			
+		case TOP:
+			//TODO
+			
+			break;
+		default:
+			System.out.println("draw not yet implemented");
+			break;
 		}
 	}
 	/**
@@ -178,7 +224,22 @@ public class PFlyoutMenu implements MouseListener{
 		p.fill(this.fill);
 		p.strokeWeight(1);
 		p.rectMode(PConstants.CENTER);
-		p.rect(x - handleWidth/2, y, handleWidth, handleHeight, cornerRadius, 0, 0, cornerRadius);
+		//p.rect(x - handleWidth/2, y, handleWidth, handleHeight, cornerRadius, 0, 0, cornerRadius);
+		switch(this.gravity){
+		case RIGHT:
+			p.rect(x - handleWidth/2, y, handleWidth, handleHeight, cornerRadius, 0, 0, cornerRadius);
+			break;
+		case BOTTOM:
+			break;
+		case LEFT:
+			p.rect(x + handleWidth/2.0f, y, handleWidth, handleHeight, 0, cornerRadius, cornerRadius, 0);
+			break;
+		case TOP:
+			break;
+		default:
+			break;
+		}
+		
 	}
 	
 	/**
@@ -189,8 +250,8 @@ public class PFlyoutMenu implements MouseListener{
 	 */
 	public boolean isInside(float x, float y){
 		boolean returnValue = false;
-		switch(this.where){
-		case LEFT:
+		switch(this.gravity){
+		case RIGHT:
 			if(this.checked){
 				//x is inside
 				if ((x >= this.p.width - handleWidth - this.width) && (x <= this.p.width - this.width)) {
@@ -209,9 +270,20 @@ public class PFlyoutMenu implements MouseListener{
 				}
 			}
 			break;
-		case RIGHT:
-			// TODO to implement
-			System.out.println("RIGHT not yet implemented");
+		case LEFT:
+			if(this.checked){
+				if((x >= this.width) && (x <= this.width + handleWidth)){
+					if ((y >= this.y - this.handleHeight/2) && (y <= this.y + this.handleHeight/2)) {
+						returnValue = true;
+					}
+				}
+			}else{
+				if(x <= this.handleWidth){
+					if ((y >= this.y - this.handleHeight/2) && (y <= this.y + this.handleHeight/2)) {
+						returnValue = true;
+					}
+				}
+			}
 			break;
 			
 		case TOP:
@@ -235,8 +307,8 @@ public class PFlyoutMenu implements MouseListener{
 	 */
 	private boolean isInsideMenuBox(float x, float y){
 		boolean returnValue = false;
-		switch(this.where){
-		case LEFT:
+		switch(this.gravity){
+		case RIGHT:
 			if(this.checked){
 				//x is inside
 				if ((x >= this.p.width - this.width) && (x <= this.p.width)) {
@@ -247,9 +319,16 @@ public class PFlyoutMenu implements MouseListener{
 				}
 			}
 			break;
-		case RIGHT:
-			// TODO to implement
-			System.out.println("RIGHT not yet implemented");
+		case LEFT:
+			if(this.checked){
+				//x is inside
+				if(x <= this.width){
+					//y is inside
+					if ((y >= this.y - this.handleHeight/2) && (y <= this.y + this.height)) {
+						returnValue = true;
+					}
+				}
+			}
 			break;
 			
 		case TOP:
@@ -273,6 +352,7 @@ public class PFlyoutMenu implements MouseListener{
 	 * for mouseEventHandling see the PRadioButtonGroup
 	 * @param pic the {@code PRadioButtons} to add
 	 */ 
+	@SuppressWarnings("incomplete-switch")
 	public void add(PIComponent pic){
 		if(this.componentsMaxWidth < pic.getComponentWidth()){
 			this.componentsMaxWidth = pic.getComponentWidth();
@@ -284,9 +364,21 @@ public class PFlyoutMenu implements MouseListener{
 		
 		this.components.add(pic);
 		this.height = (components.size() * componentsMaxHeight * 1.3f) + (handleHeight/2);
-		for (int i = 0; i < components.size(); i++){
-			this.components.get(i).setLocation(this.p.width - this.width + (this.componentsMaxHeight*1.3f), this.y + (i * (this.componentsMaxHeight*1.3f)));
+		
+		switch(this.gravity){
+		case RIGHT:
+			for (int i = 0; i < components.size(); i++){
+				this.components.get(i).setLocation(this.p.width - this.width + (this.componentsMaxHeight*1.3f), this.y + (i * (this.componentsMaxHeight*1.3f)));
+			}
+			break;
+		case LEFT:
+			for (int i = 0; i < components.size(); i++){
+				this.components.get(i).setLocation(this.componentsMaxHeight*1.3f, this.y + (i * (this.componentsMaxHeight*1.3f)));
+			}
+			break;
 		}
+		
+		
 	}
 	
 	/**
