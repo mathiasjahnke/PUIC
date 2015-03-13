@@ -149,6 +149,7 @@ public class PFlyoutMenu implements MouseListener{
 	 */
 	public void setGravity(FlyoutMenuOptions gravity){
 		this.gravity = gravity;
+		updateComponentLocations();
 	}
 
 	/**
@@ -202,7 +203,9 @@ public class PFlyoutMenu implements MouseListener{
 			break;
 			
 		case TOP:
-			//TODO
+			if(checked == false){
+				drawHandle(this.x, 0);
+			}
 			
 			break;
 		default:
@@ -235,6 +238,7 @@ public class PFlyoutMenu implements MouseListener{
 			p.rect(x + handleWidth/2.0f, y, handleWidth, handleHeight, 0, cornerRadius, cornerRadius, 0);
 			break;
 		case TOP:
+			p.rect(x, y + handleHeight/2.0f, handleWidth, handleHeight, 0, 0, cornerRadius, cornerRadius);
 			break;
 		default:
 			break;
@@ -347,24 +351,10 @@ public class PFlyoutMenu implements MouseListener{
 	}
 	
 	/**
-	 * adds a component to the flyout menu. 
-	 * at the moment only working for {@code PRadioButtons}.
-	 * for mouseEventHandling see the PRadioButtonGroup
-	 * @param pic the {@code PRadioButtons} to add
-	 */ 
+	 * update the component locations and is called in add(Component) and if the gravity is changed 
+	 */
 	@SuppressWarnings("incomplete-switch")
-	public void add(PIComponent pic){
-		if(this.componentsMaxWidth < pic.getComponentWidth()){
-			this.componentsMaxWidth = pic.getComponentWidth();
-			this.width = this.componentsMaxWidth * 1.5f;
-		}
-		if(this.componentsMaxHeight < pic.getComponentHeight()){
-			this.componentsMaxHeight = pic.getComponentHeight();
-		}
-		
-		this.components.add(pic);
-		this.height = (components.size() * componentsMaxHeight * 1.3f) + (handleHeight/2);
-		
+	private void updateComponentLocations(){
 		switch(this.gravity){
 		case RIGHT:
 			for (int i = 0; i < components.size(); i++){
@@ -377,6 +367,28 @@ public class PFlyoutMenu implements MouseListener{
 			}
 			break;
 		}
+		
+	}
+	
+	/**
+	 * adds a component to the flyout menu. 
+	 * at the moment only working for {@code PRadioButtons}.
+	 * for mouseEventHandling see the PRadioButtonGroup
+	 * @param pic the {@code PRadioButtons} to add
+	 */ 
+	public void add(PIComponent pic){
+		if(this.componentsMaxWidth < pic.getComponentWidth()){
+			this.componentsMaxWidth = pic.getComponentWidth();
+			this.width = this.componentsMaxWidth * 1.5f;
+		}
+		if(this.componentsMaxHeight < pic.getComponentHeight()){
+			this.componentsMaxHeight = pic.getComponentHeight();
+		}
+		
+		this.components.add(pic);
+		this.height = (components.size() * componentsMaxHeight * 1.3f) + (handleHeight/2);
+		
+		updateComponentLocations();
 		
 		
 	}
