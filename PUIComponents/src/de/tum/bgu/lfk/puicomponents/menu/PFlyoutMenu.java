@@ -205,6 +205,19 @@ public class PFlyoutMenu implements MouseListener{
 		case TOP:
 			if(checked == false){
 				drawHandle(this.x, 0);
+			}else{
+				drawHandle(this.x, this.height);
+				p.rectMode(PConstants.CENTER);
+				p.stroke(this.stroke);
+				p.fill(this.fill);
+				p.strokeWeight(1);
+				p.rect(this.x + this.width/2 - handleWidth/2, this.height/2 , this.width, this.height);
+				
+				Iterator<PIComponent> iter = components.iterator();
+				while(iter.hasNext()){
+					PIComponent prb = (PIComponent) iter.next();
+					prb.draw();
+				}
 			}
 			
 			break;
@@ -292,7 +305,16 @@ public class PFlyoutMenu implements MouseListener{
 			
 		case TOP:
 			//TODO to implement
-			System.out.println("TOP not yet implemented");
+			if(this.checked){ //opened
+				
+			}else{ //closed
+				if((x >= this.x - handleWidth/2) && (x <= this.x + handleWidth/2)){
+					if((y >= this.y) && (y <= this.y + handleHeight)){
+						returnValue = true;
+					}
+				}
+			}
+			//System.out.println("TOP not yet implemented");
 			break;
 			
 		case BOTTOM:
@@ -336,8 +358,14 @@ public class PFlyoutMenu implements MouseListener{
 			break;
 			
 		case TOP:
-			//TODO to implement
-			System.out.println("TOP not yet implemented");
+			if(this.checked){
+				if((x >= this.x - handleWidth/2) && (x <= this.x - handleWidth/2 + this.width)){
+					if((y >= this.y) && (y <= this.y + this.height)){
+						returnValue = true;
+					}
+				}
+				
+			}
 			break;
 			
 		case BOTTOM:
@@ -366,14 +394,19 @@ public class PFlyoutMenu implements MouseListener{
 				this.components.get(i).setLocation(this.componentsMaxHeight*1.3f, this.y + (i * (this.componentsMaxHeight*1.3f)));
 			}
 			break;
+		case TOP:
+			for (int i = 0; i < components.size(); i++) {
+				this.components.get(i).setLocation(this.x - handleWidth/2 + (this.componentsMaxHeight*1.3f), this.y + handleHeight/2 + (i * this.componentsMaxHeight * 1.3f));
+			}
+			break;
 		}
 		
 	}
 	
 	/**
 	 * adds a component to the flyout menu. 
-	 * at the moment only working for {@code PRadioButtons}.
-	 * for mouseEventHandling see the PRadioButtonGroup
+	 * at the moment working for {@code PIComponent}.
+	 * for mouseEventHandling see the PButtonGroup
 	 * @param pic the {@code PRadioButtons} to add
 	 */ 
 	public void add(PIComponent pic){
