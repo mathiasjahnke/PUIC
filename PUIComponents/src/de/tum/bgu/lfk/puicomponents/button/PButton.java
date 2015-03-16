@@ -38,6 +38,9 @@ public class PButton implements PIButton{
 	private int textColor;
 	private int textColorHighlight;
 	
+	private float marginTop, marginRight, marginBottom, marginLeft;
+	private float paddingTop, paddingRight, paddingBottom, paddingLeft;
+	
 	private float cornerRadius;
 	private float outlineWeight;
 
@@ -305,6 +308,58 @@ public class PButton implements PIButton{
 	public void setOutlineWeight(float outlineWeight){
 		this.outlineWeight = outlineWeight;
 	}
+	
+	/**
+	 * sets the margin for top, right, bottom and left
+	 * @param top
+	 * @param right
+	 * @param bottom
+	 * @param left
+	 */
+	public void setMargin(float top, float right, float bottom, float left){
+		this.marginTop = top;
+		this.marginRight = right;
+		this.marginBottom = bottom;
+		this.marginLeft = left;
+	}
+	
+	/**
+	 * sets the margin for all four sides (top, right, bottom and left)
+	 * @param all
+	 */
+	public void setMargin(float all){
+		this.marginTop = all;
+		this.marginRight = all;
+		this.marginBottom = all;
+		this.marginLeft = all;
+	}
+	
+	/**
+	 * sets the padding for top, right, bottom, left.
+	 * @param top
+	 * @param right
+	 * @param bottom
+	 * @param left
+	 */
+	public void setPadding(float top, float right, float bottom, float left){
+		this.paddingTop = top;
+		this.paddingRight = right;
+		this.paddingBottom = bottom;
+		this.paddingLeft = left;
+	}
+	
+	/**
+	 * sets the padding for all four sides (top, right, bottom and left)
+	 * @param all
+	 */
+	public void setPadding(float all){
+		this.paddingTop = all;
+		this.paddingRight = all;
+		this.paddingBottom = all;
+		this.paddingLeft = all;
+	}
+	
+	
 
 	/**
 	 * draws the button every time the function is called
