@@ -155,9 +155,9 @@ public class PFlyoutMenu implements MouseListener{
 		switch(this.gravity){
 		case RIGHT:  								// only y is important
 			if(checked == false){
-				drawHandle(this.p.width, this.y);
+				drawHandle(this.p.width - handleWidth/2, this.y);
 			}else{
-				drawHandle(this.p.width - this.width, this.y);
+				drawHandle(this.p.width - this.width - handleWidth/2, this.y);
 				p.rectMode(PConstants.CENTER);
 				p.stroke(this.stroke);
 				p.fill(this.fill);
@@ -193,9 +193,9 @@ public class PFlyoutMenu implements MouseListener{
 			
 		case LEFT:
 			if(checked == false){
-				drawHandle(0, this.y);
+				drawHandle(0 + handleWidth/2.0f, this.y);
 			}else{
-				drawHandle(this.width, this.y);
+				drawHandle(this.width + handleWidth/2.0f, this.y);
 				p.rectMode(PConstants.CENTER);
 				p.stroke(this.stroke);
 				p.fill(this.fill);
@@ -212,9 +212,9 @@ public class PFlyoutMenu implements MouseListener{
 			
 		case TOP:
 			if(checked == false){
-				drawHandle(this.x, 0);
+				drawHandle(this.x, 0 + handleHeight/2.0f);
 			}else{
-				drawHandle(this.x, this.height);
+				drawHandle(this.x, this.height + handleHeight/2.0f);
 				p.rectMode(PConstants.CENTER);
 				p.stroke(this.stroke);
 				p.fill(this.fill);
@@ -229,42 +229,7 @@ public class PFlyoutMenu implements MouseListener{
 			}
 			
 			break;
-		default:
-			System.out.println("draw not yet implemented");
-			break;
 		}
-	}
-	/**
-	private void notifyObservers(){
-		Iterator<Observer> i = observers.iterator();
-		while(i.hasNext()){
-			Observer o = (Observer) i.next();
-			o.update(this);
-		}
-	}**/
-	
-	private void drawHandle(float x, float y){
-		p.stroke(this.stroke);
-		p.fill(this.fill);
-		p.strokeWeight(1);
-		p.rectMode(PConstants.CENTER);
-		switch(this.gravity){
-		case RIGHT:
-			p.rect(x - handleWidth/2, y, handleWidth, handleHeight, cornerRadius, 0, 0, cornerRadius);
-			break;
-		case BOTTOM:
-			p.rect(x, y, handleWidth, handleHeight, cornerRadius, cornerRadius, 0, 0);
-			break;
-		case LEFT:
-			p.rect(x + handleWidth/2.0f, y, handleWidth, handleHeight, 0, cornerRadius, cornerRadius, 0);
-			break;
-		case TOP:
-			p.rect(x, y + handleHeight/2.0f, handleWidth, handleHeight, 0, 0, cornerRadius, cornerRadius);
-			break;
-		default:
-			break;
-		}
-		
 	}
 	
 	/**
@@ -340,6 +305,39 @@ public class PFlyoutMenu implements MouseListener{
 	}
 	
 	/**
+	private void notifyObservers(){
+		Iterator<Observer> i = observers.iterator();
+		while(i.hasNext()){
+			Observer o = (Observer) i.next();
+			o.update(this);
+		}
+	}**/
+	
+	private void drawHandle(float x, float y){
+		p.stroke(this.stroke);
+		p.fill(this.fill);
+		p.strokeWeight(1);
+		p.rectMode(PConstants.CENTER);
+		switch(this.gravity){
+		case RIGHT:
+			p.rect(x, y, handleWidth, handleHeight, cornerRadius, 0, 0, cornerRadius);
+			break;
+		case BOTTOM:
+			p.rect(x, y, handleWidth, handleHeight, cornerRadius, cornerRadius, 0, 0);
+			break;
+		case LEFT:
+			p.rect(x, y, handleWidth, handleHeight, 0, cornerRadius, cornerRadius, 0);
+			break;
+		case TOP:
+			p.rect(x, y, handleWidth, handleHeight, 0, 0, cornerRadius, cornerRadius);
+			break;
+		}
+		
+	}
+	
+	
+	
+	/**
 	 * indicates if the mouse is inside the opened flyout menu box
 	 * @param x the mouse position
 	 * @param y the mouse position
@@ -398,7 +396,6 @@ public class PFlyoutMenu implements MouseListener{
 	/**
 	 * update the component locations and is called in add(Component) and if the gravity is changed 
 	 */
-	@SuppressWarnings("incomplete-switch")
 	private void updateComponentLocations(){
 		switch(this.gravity){
 		case RIGHT:
