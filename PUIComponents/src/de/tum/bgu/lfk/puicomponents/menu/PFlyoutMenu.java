@@ -305,6 +305,29 @@ public class PFlyoutMenu implements MouseListener{
 	}
 	
 	/**
+	 * adds a component to the flyout menu. 
+	 * at the moment working for {@code PIComponent}.
+	 * for mouseEventHandling see the PButtonGroup
+	 * @param pic the {@code PRadioButtons} to add
+	 */ 
+	public void add(PIComponent pic){
+		if(this.componentsMaxWidth < pic.getComponentWidth()){
+			this.componentsMaxWidth = pic.getComponentWidth();
+			this.width = this.componentsMaxWidth * 1.5f;
+		}
+		if(this.componentsMaxHeight < pic.getComponentHeight()){
+			this.componentsMaxHeight = pic.getComponentHeight();
+		}
+		
+		this.components.add(pic);
+		this.height = (components.size() * componentsMaxHeight * 1.3f) + (handleHeight/2);
+		
+		updateComponentLocations();
+		
+		
+	}
+	
+	/**
 	private void notifyObservers(){
 		Iterator<Observer> i = observers.iterator();
 		while(i.hasNext()){
@@ -418,29 +441,6 @@ public class PFlyoutMenu implements MouseListener{
 				this.components.get(i).setLocation(this.x - handleWidth/2 + (this.componentsMaxHeight*1.3f), this.y - handleHeight + (i * this.componentsMaxHeight * 1.3f));
 			}
 		}
-		
-	}
-	
-	/**
-	 * adds a component to the flyout menu. 
-	 * at the moment working for {@code PIComponent}.
-	 * for mouseEventHandling see the PButtonGroup
-	 * @param pic the {@code PRadioButtons} to add
-	 */ 
-	public void add(PIComponent pic){
-		if(this.componentsMaxWidth < pic.getComponentWidth()){
-			this.componentsMaxWidth = pic.getComponentWidth();
-			this.width = this.componentsMaxWidth * 1.5f;
-		}
-		if(this.componentsMaxHeight < pic.getComponentHeight()){
-			this.componentsMaxHeight = pic.getComponentHeight();
-		}
-		
-		this.components.add(pic);
-		this.height = (components.size() * componentsMaxHeight * 1.3f) + (handleHeight/2);
-		
-		updateComponentLocations();
-		
 		
 	}
 	

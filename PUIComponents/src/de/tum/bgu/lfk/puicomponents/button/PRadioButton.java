@@ -8,6 +8,7 @@ import processing.core.PFont;
 
 /**
  * a simple radio button for using with <a href="http://www.processing.org">processing</a>.
+ * within the radiobutton the padding is always 0. The components width and height include the padding but mot the margins
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
  * @since 12.02.2015
@@ -25,17 +26,18 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	private float radius;
 	
 	private int strokeColor;
-	private int strokeColorMarked;
 	private int fillColor;
 	private int fillColorMarked;
 	private int textColor;
-	private int textColorMarked;
 	
 	private boolean checked;
 	
 	//width and height of the whole component including the graphic and the text
 	private float componentWidth;
 	private float componentHeight;
+	
+	private float marginTop, marginRight, marginLeft, marginBottom;
+	private float paddingTop, paddingRight, paddingLeft, paddingBottom;
 	
 	/**
 	 * standard constructor.
@@ -65,7 +67,7 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 		
 		this.strokeColor = p.color(0);
 		this.fillColor = p.color(255);
-		this.fillColorMarked = this.strokeColor;
+		this.fillColorMarked = p.color(0);
 		this.textColor = p.color(0);
 		
 		//Calculate component width and height
@@ -75,6 +77,16 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 			this.componentHeight = this.p.textAscent() + this.p.textDescent();
 		}
 		this.componentWidth = this.p.textWidth(this.text) + radius + (this.componentHeight * 0.4f);
+		
+		this.paddingTop = 0;
+		this.paddingRight = 0;
+		this.paddingBottom = 0;
+		this.paddingLeft = 0;
+		
+		this.marginTop = 4;
+		this.marginRight = 6;
+		this.marginBottom = 4;
+		this.marginLeft = 6;
 	}
 	
 	/**
@@ -98,19 +110,26 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 		
 		this.strokeColor = p.color(0);
 		this.fillColor = p.color(255);
-		this.fillColorMarked = this.strokeColor;
+		this.fillColorMarked = p.color(0);
 		this.textColor = p.color(0);
 		
 		//Calculate component width and height
 		if((this.p.textAscent() + this.p.textDescent() <= (radius * 2))){
 			this.componentHeight = radius * 2;
 		}else{
-			this.componentHeight = this.p.textAscent() + this.p.textDescent();
+			this.componentHeight = this.p.textAscent() + this.p.textDescent() + paddingTop + paddingBottom;
 		}
-		this.componentWidth = this.p.textWidth(this.text) + radius + (this.componentHeight * 0.4f);
+		this.componentWidth = this.p.textWidth(this.text) + radius + (this.componentHeight * 0.4f) + paddingLeft + paddingRight;
+	
+		this.paddingTop = 0;
+		this.paddingRight = 0;
+		this.paddingBottom = 0;
+		this.paddingLeft = 0;
 		
-		//System.out.println(text + ": " + width + " x " + height);
-		
+		this.marginTop = 4;
+		this.marginRight = 6;
+		this.marginBottom = 4;
+		this.marginLeft = 6;
 	}
 	
 	/**
@@ -240,12 +259,10 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	 * @param fillColor the fill color
 	 * @param fillColorHighlight the fill color if marked
 	 */
-	public void setStyling(int strokeColor, int strokeColorHighlight, int fillColor, int fillColorHighlight){
+	public void setStyling(int strokeColor, int fillColor, int fillColorMarked){
 		this.strokeColor = strokeColor;
 		this.fillColor = fillColor;
-		this.strokeColorMarked = strokeColorHighlight;
-		this.fillColorMarked = fillColorHighlight;
-	
+		this.fillColorMarked = fillColorMarked;
 	}
 	
 	/**
@@ -256,9 +273,8 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	 * @param textColorHighlight the text color if marked
 	 * @param textFont the font of the text
 	 */
-	public void setTextStyling(int textColor, int textColorHighlight, PFont textFont){
+	public void setTextStyling(int textColor, PFont textFont){
 		this.textColor = textColor;
-		this.textColorMarked = textColorHighlight;
 		if(textFont != null){
 			this.textFont = textFont;
 		}
@@ -290,6 +306,38 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	@Override
 	public float getComponentHeight(){
 		return this.componentHeight;
+	}
+
+	@Override
+	public void setMargin(float top, float right, float bottom, float left) {
+		this.marginTop = top;
+		this.marginRight = right;
+		this.marginBottom = bottom;
+		this.marginLeft = left;
+	}
+	
+	public float getMarginTop(){
+		return marginTop;
+	}
+	
+	public float getMarginBottom(){
+		return marginBottom;
+	}
+	
+	public float getMarginRight(){
+		return marginRight;
+	}
+	
+	public float getMarginLeft(){
+		return marginLeft;
+	}
+
+	@Override
+	public void setPadding(float top, float right, float bottom, float left) {
+		this.paddingTop = 0;
+		this.paddingRight = 0;
+		this.paddingBottom = 0;
+		this.paddingLeft = 0;
 	}
 
 }
