@@ -331,6 +331,22 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	public float getMarginLeft(){
 		return marginLeft;
 	}
+	
+	public float getPaddingTop(){
+		return paddingTop;
+	}
+	
+	public float getPaddingBottom(){
+		return paddingBottom;
+	}
+	
+	public float getPaddingRight(){
+		return paddingRight;
+	}
+	
+	public float getPaddingLeft(){
+		return paddingLeft;
+	}
 
 	@Override
 	public void setPadding(float top, float right, float bottom, float left) {
