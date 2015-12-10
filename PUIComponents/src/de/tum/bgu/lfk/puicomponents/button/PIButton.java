@@ -1,4 +1,4 @@
-package de.tum.bgu.lfk.puicomponents.button;
+package src.de.tum.bgu.lfk.puicomponents.button;
 
 /**
  * the Interface to handle different buttons in the PButtonGroup class

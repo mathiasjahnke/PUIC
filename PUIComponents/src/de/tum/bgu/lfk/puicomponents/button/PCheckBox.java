@@ -1,6 +1,6 @@
-package de.tum.bgu.lfk.puicomponents.button;
+package src.de.tum.bgu.lfk.puicomponents.button;
 
-import de.tum.bgu.lfk.puicomponents.constants.CheckBoxOptions;
+import src.de.tum.bgu.lfk.puicomponents.constants.CheckBoxOptions;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PFont;

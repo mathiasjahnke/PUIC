@@ -1,4 +1,4 @@
-package de.tum.bgu.lfk.puicomponents.slider;
+package src.de.tum.bgu.lfk.puicomponents.slider;
 
 import processing.core.PApplet;
 import processing.core.PConstants;

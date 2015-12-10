@@ -1,8 +1,8 @@
-package de.tum.bgu.lfk.puicomponents.charts;
+package src.de.tum.bgu.lfk.puicomponents.charts;
 
-import de.tum.bgu.lfk.datahandling.table.Table;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import src.de.tum.bgu.lfk.datahandling.table.Table;
 
 /**
  * a bar chart in processing. 

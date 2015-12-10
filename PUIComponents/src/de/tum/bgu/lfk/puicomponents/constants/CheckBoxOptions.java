@@ -1,4 +1,4 @@
-package de.tum.bgu.lfk.puicomponents.constants;
+package src.de.tum.bgu.lfk.puicomponents.constants;
 
 public enum CheckBoxOptions {
 	

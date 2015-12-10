@@ -1,4 +1,4 @@
-package de.tum.bgu.lfk.puicomponents.button;
+package src.de.tum.bgu.lfk.puicomponents.button;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

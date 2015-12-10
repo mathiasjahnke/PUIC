@@ -1,12 +1,12 @@
-package de.tum.bgu.lfk.puicomponents.menu;
+package src.de.tum.bgu.lfk.puicomponents.menu;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import de.tum.bgu.lfk.puicomponents.button.PIComponent;
-import de.tum.bgu.lfk.puicomponents.constants.FlyoutMenuOptions;
+import src.de.tum.bgu.lfk.puicomponents.button.PIComponent;
+import src.de.tum.bgu.lfk.puicomponents.constants.FlyoutMenuOptions;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
