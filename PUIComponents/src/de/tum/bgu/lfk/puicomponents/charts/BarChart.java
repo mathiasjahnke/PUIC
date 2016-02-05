@@ -423,8 +423,8 @@ public class BarChart {
 				if(data.getFloat(i - 1, dataColumn) < 0){
 					barHeight = (int) PApplet.map(data.getFloat(i - 1, dataColumn), 0, getMin(dataColumn), 0, h - topMargin - bottomMargin - zl);
 					highlightSingleBar(x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin), (int)(y + zl + topMargin), x + leftMargin + Math.round((barWidth * i) - interBarMargin), (int)(y + zl + topMargin + barHeight));
-					System.out.println("highlight:");
-					System.out.println("x1: " + (x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin)) + " y1: " + (y + zl + topMargin) + " x2: " + (x + leftMargin + Math.round((barWidth * i) - interBarMargin)) + " y2: " + (y + zl + barHeight + topMargin));
+					//System.out.println("highlight:");
+					//System.out.println("x1: " + (x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin)) + " y1: " + (y + zl + topMargin) + " x2: " + (x + leftMargin + Math.round((barWidth * i) - interBarMargin)) + " y2: " + (y + zl + barHeight + topMargin));
 				}else{
 					barHeight = (int) PApplet.map(data.getFloat(i - 1, dataColumn), 0, getMax(dataColumn), 0, zl);
 					highlightSingleBar(x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin), (int)(y + zl + topMargin), x + leftMargin + (Math.round(barWidth * i) - interBarMargin), (int)(y + zl + topMargin - barHeight));
@@ -473,8 +473,8 @@ public class BarChart {
 				if((i - 1) == 1){
 					//System.out.println("zl: " + zl);
 					//System.out.println("N: " + barHeight + " : " + data.getFloatByRowIndex(i - 1, dataColumn) + " : " + getMin(dataColumn) + " : " + (h - topMargin - bottomMargin -zl));
-					System.out.println("draw:");
-					System.out.println("x1: " + (x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin)) + " y1: " + (y + zl + topMargin) + " x2: " + (x + leftMargin + Math.round((barWidth * i) - interBarMargin)) + " y2: " + (y + zl + barHeight + topMargin));
+					//System.out.println("draw:");
+					//System.out.println("x1: " + (x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin)) + " y1: " + (y + zl + topMargin) + " x2: " + (x + leftMargin + Math.round((barWidth * i) - interBarMargin)) + " y2: " + (y + zl + barHeight + topMargin));
 					//System.out.println(p.mouseX + " : " + p.mouseY);
 				}
 				
