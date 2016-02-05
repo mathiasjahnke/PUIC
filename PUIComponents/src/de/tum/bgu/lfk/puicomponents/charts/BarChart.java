@@ -2,7 +2,8 @@ package src.de.tum.bgu.lfk.puicomponents.charts;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
-import src.de.tum.bgu.lfk.datahandling.table.Table;
+import processing.data.Table;
+//import src.de.tum.bgu.lfk.datahandling.table.Table;
 
 /**
  * a bar chart in processing. 
@@ -235,7 +236,7 @@ public class BarChart {
 		float max = PConstants.MIN_FLOAT;
 		
 		for (int row = 0; row < data.getRowCount(); row++) {
-			float value = data.getFloatByRowIndex(row, col);
+			float value = data.getFloat(row, col);
 			if (value > max) {
 				max = value;
 			}
@@ -253,7 +254,7 @@ public class BarChart {
 		float min = PConstants.MAX_FLOAT;
 		
 		for (int row = 0; row < data.getRowCount(); row++) {
-			float value = data.getFloatByRowIndex(row, col);
+			float value = data.getFloat(row, col);
 			if (value < min) {
 				min = value;
 			}
@@ -379,25 +380,25 @@ public class BarChart {
 			//if in x range
 			if((mx >= (x + leftMargin + interBarMargin + (Math.round(barWidth * (i - 1))))) && (mx <=  (x + leftMargin + Math.round((barWidth * i) - interBarMargin)))){
 				//check if bar pos or neg
-				if(data.getFloatByRowIndex(i - 1, dataColumn) < 0){
+				if(data.getFloat(i - 1, dataColumn) < 0){
 					//check y for neg
-					barHeight = (int) PApplet.map(data.getFloatByRowIndex(i - 1, dataColumn), 0, getMin(dataColumn), 0, h - topMargin - bottomMargin - zl);
+					barHeight = (int) PApplet.map(data.getFloat(i - 1, dataColumn), 0, getMin(dataColumn), 0, h - topMargin - bottomMargin - zl);
 					
 					//System.out.println(p.mouseX + " : " + p.mouseY);
 					//System.out.println("N bottom: " + (y + zl + topMargin) + " : " + "top :" + (y + zl + barHeight - bottomMargin));
 					
 					if((my >= (y + zl + topMargin)) && (my <= (y + zl + barHeight + topMargin))){
-						res = data.getStringByRowIndex(i - 1, idColumn);
+						res = data.getString(i - 1, idColumn);
 					}
 				}else{
 					//check y for pos
-					barHeight = (int) PApplet.map(data.getFloatByRowIndex(i - 1, dataColumn), 0, getMax(dataColumn), 0, zl);
+					barHeight = (int) PApplet.map(data.getFloat(i - 1, dataColumn), 0, getMax(dataColumn), 0, zl);
 					
 					//System.out.println(p.mouseX + " : " + p.mouseY);
 					//System.out.println("P bottom: " + (y + zl + topMargin) + " : "+ "top: " + (y + zl - barHeight + topMargin));
 					
 					if((my <= (y + zl + topMargin)) && (my >= (y + zl - barHeight + topMargin))){
-						res = data.getStringByRowIndex(i - 1, idColumn);
+						res = data.getString(i - 1, idColumn);
 					}
 				}
 			}
@@ -418,14 +419,14 @@ public class BarChart {
 		int barHeight;
 		
 		for(int i = 1; i < data.getRowCount() + 1; i++){
-			if(data.getStringByRowIndex(i - 1, idColumn) == id){
-				if(data.getFloatByRowIndex(i - 1, dataColumn) < 0){
-					barHeight = (int) PApplet.map(data.getFloatByRowIndex(i - 1, dataColumn), 0, getMin(dataColumn), 0, h - topMargin - bottomMargin - zl);
+			if(data.getString(i - 1, idColumn) == id){
+				if(data.getFloat(i - 1, dataColumn) < 0){
+					barHeight = (int) PApplet.map(data.getFloat(i - 1, dataColumn), 0, getMin(dataColumn), 0, h - topMargin - bottomMargin - zl);
 					highlightSingleBar(x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin), (int)(y + zl + topMargin), x + leftMargin + Math.round((barWidth * i) - interBarMargin), (int)(y + zl + topMargin + barHeight));
 					System.out.println("highlight:");
 					System.out.println("x1: " + (x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin)) + " y1: " + (y + zl + topMargin) + " x2: " + (x + leftMargin + Math.round((barWidth * i) - interBarMargin)) + " y2: " + (y + zl + barHeight + topMargin));
 				}else{
-					barHeight = (int) PApplet.map(data.getFloatByRowIndex(i - 1, dataColumn), 0, getMax(dataColumn), 0, zl);
+					barHeight = (int) PApplet.map(data.getFloat(i - 1, dataColumn), 0, getMax(dataColumn), 0, zl);
 					highlightSingleBar(x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin), (int)(y + zl + topMargin), x + leftMargin + (Math.round(barWidth * i) - interBarMargin), (int)(y + zl + topMargin - barHeight));
 				}
 			}
@@ -466,8 +467,8 @@ public class BarChart {
 		
 		for(int i = 1; i < data.getRowCount() + 1; i++){
 						
-			if(data.getFloatByRowIndex(i - 1, dataColumn) < 0){
-				barHeight = (int) PApplet.map(data.getFloatByRowIndex(i - 1, dataColumn), 0, getMin(dataColumn), 0, h - topMargin - bottomMargin - zl);
+			if(data.getFloat(i - 1, dataColumn) < 0){
+				barHeight = (int) PApplet.map(data.getFloat(i - 1, dataColumn), 0, getMin(dataColumn), 0, h - topMargin - bottomMargin - zl);
 				
 				if((i - 1) == 1){
 					//System.out.println("zl: " + zl);
@@ -480,7 +481,7 @@ public class BarChart {
 				drawSingleBar(x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin), (int)(y + topMargin + zl), x + leftMargin + Math.round((barWidth * i) - interBarMargin), (int)(y + zl + topMargin + barHeight));
 			}else{
 				
-				barHeight = (int) PApplet.map(data.getFloatByRowIndex(i - 1, dataColumn), 0, getMax(dataColumn), 0, zl);
+				barHeight = (int) PApplet.map(data.getFloat(i - 1, dataColumn), 0, getMax(dataColumn), 0, zl);
 				drawSingleBar(x + leftMargin + (Math.round(barWidth * (i - 1)) + interBarMargin), (int)(y + topMargin + zl), x + leftMargin + (Math.round(barWidth * i) - interBarMargin), (int)(y + zl + topMargin - barHeight));
 			}
 		}
