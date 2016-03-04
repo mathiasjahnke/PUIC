@@ -137,10 +137,19 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	 * @param x 
 	 * @param y
 	 */
-	@Override
 	public void setLocation(float x, float y){
 		this.x = x;
 		this.y = y;
+	}
+	
+	/**
+	 * Resizes the component.
+	 * @param width the new width to set.
+	 * @param height the new height to set.
+	 */
+	public void setSize(float width, float height){
+		this.componentWidth = width;
+		this.componentHeight = height;
 	}
 	
 	/**
@@ -251,6 +260,35 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	}
 	
 	/**
+	 * if e.g. the mouse is inside the radio button area or not.
+	 * the same like is inside(float x, float y) but with regard to PIComponent.
+	 * @param x
+	 * @param y
+	 * @return true if inside otherwise false
+	 */
+	public boolean contains(float x, float y){
+		if(PApplet.dist(this.x, this.y, x, y) < this.radius){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * returns the current x coordinate of the radioButtons origin.
+	 */
+	public float getX(){
+		return this.x;
+	}
+	
+	/**
+	 * returns the current y coordinate of the radioButtons origin.
+	 */
+	public float getY(){
+		return this.y;
+	}
+	
+	/**
 	 * sets the styling. 
 	 * in the main applet the color has to be set via color(grayValue) or color(red, green, blue) etc.
 	 * 
@@ -295,7 +333,7 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	 * @return the components width
 	 */
 	@Override
-	public float getComponentWidth(){
+	public float getWidth(){
 		return this.componentWidth;
 	}
 	
@@ -304,11 +342,10 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	 * @return the components height
 	 */
 	@Override
-	public float getComponentHeight(){
+	public float getHeight(){
 		return this.componentHeight;
 	}
 
-	@Override
 	public void setMargin(float top, float right, float bottom, float left) {
 		this.marginTop = top;
 		this.marginRight = right;
@@ -348,7 +385,7 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 		return paddingLeft;
 	}
 
-	@Override
+
 	public void setPadding(float top, float right, float bottom, float left) {
 		this.paddingTop = 0;
 		this.paddingRight = 0;

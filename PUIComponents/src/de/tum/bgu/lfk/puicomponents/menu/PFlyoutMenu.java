@@ -311,12 +311,12 @@ public class PFlyoutMenu implements MouseListener{
 	 * @param pic the {@code PRadioButtons} to add
 	 */ 
 	public void add(PIComponent pic){
-		if(this.componentsMaxWidth < pic.getComponentWidth()){
-			this.componentsMaxWidth = pic.getComponentWidth();
+		if(this.componentsMaxWidth < pic.getWidth()){
+			this.componentsMaxWidth = pic.getWidth();
 			this.width = this.componentsMaxWidth * 1.5f;
 		}
-		if(this.componentsMaxHeight < pic.getComponentHeight()){
-			this.componentsMaxHeight = pic.getComponentHeight();
+		if(this.componentsMaxHeight < pic.getHeight()){
+			this.componentsMaxHeight = pic.getHeight();
 		}
 		
 		this.components.add(pic);
