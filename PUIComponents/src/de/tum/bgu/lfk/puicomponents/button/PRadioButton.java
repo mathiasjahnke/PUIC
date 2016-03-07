@@ -1,6 +1,7 @@
 package src.de.tum.bgu.lfk.puicomponents.button;
 
 import java.util.Observable;
+import java.util.UUID;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -13,7 +14,7 @@ import processing.core.PFont;
  * @version 0.0.1
  * @since 12.02.2015
  */
-public class PRadioButton extends Observable implements PIButton, PIComponent{
+public class PRadioButton implements PIButton, PIComponent{
 	
 	private PApplet p;
 	
@@ -158,9 +159,9 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	 */
 	@Override
 	public void setChecked(boolean checked){
-		setChanged();
+		//setChanged();
 		this.checked = checked;
-		notifyObservers(this);
+		//notifyObservers(this);
 	}
 	
 	/**
@@ -176,13 +177,13 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	 * 
 	 */
 	public void toggleChecked(){
-		setChanged();
+		//setChanged();
 		if(this.checked){
 			this.checked = false;
 		}else{
 			this.checked = true;
 		}
-		notifyObservers(this);
+		//notifyObservers(this);
 	}
 	
 	/**
@@ -261,7 +262,7 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 	
 	/**
 	 * if e.g. the mouse is inside the radio button area or not.
-	 * the same like is inside(float x, float y) but with regard to PIComponent.
+	 * the same like is inside(float x, float y) but with regard to PComponent.
 	 * @param x
 	 * @param y
 	 * @return true if inside otherwise false
@@ -391,6 +392,11 @@ public class PRadioButton extends Observable implements PIButton, PIComponent{
 		this.paddingRight = 0;
 		this.paddingBottom = 0;
 		this.paddingLeft = 0;
+	}
+	
+	public UUID getComponentId(){
+		UUID a = UUID.randomUUID();
+		return a;
 	}
 
 }

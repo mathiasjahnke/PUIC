@@ -1,5 +1,7 @@
 package src.de.tum.bgu.lfk.puicomponents.button;
 
+import java.util.UUID;
+
 /**
  * The interface for a ui component for processing.
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
@@ -80,6 +82,13 @@ public interface PIComponent {
 	 * @param left padding
 	 */
 //	public void setPadding(float top, float right, float bottom, float left);
+	
+	
+	/**
+	 * returns the component's unique id.
+	 * @return the component's unique id. 
+	 */
+	public UUID getComponentId();
 	
 	
 	/**
