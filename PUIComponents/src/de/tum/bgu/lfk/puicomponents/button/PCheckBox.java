@@ -7,8 +7,8 @@ import processing.core.PFont;
 
 /**
  * a simple check box class to use within <a href="http://www.processing.org">processing</a>.
- * action handling should by done via the e.g. mouseClicked() functions etc. </br>
- * The PCheckBox is always a square. </br> </br>
+ * action handling should by done via the e.g. mouseClicked() functions etc. <br>
+ * The PCheckBox is always a square. <br> <br>
  * the x- and y-coordinate are representing the the center of the PCheckBox
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
@@ -31,7 +31,7 @@ public class PCheckBox {
 	private CheckBoxOptions markerSymbol;
 	
 	/**
-	 * default constructor.</br>
+	 * default constructor.<br>
 	 * <b>do not use</b> because at the moment not all attributes can be set via methods.
 	 */
 	public PCheckBox(){

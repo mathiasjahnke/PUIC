@@ -12,12 +12,12 @@ import processing.core.PConstants;
 
 /**
  * having a button with a icon at the top, left, bottom or right which expands on clicking. 
- * after expanding it give some possibilities to set value or so.</br>  
- * TODO:</br>
- * flyout at bottom and top.</br> 
- * flyout self adopting </br>
- * something like a flyout menu group with an equal gravity and the opend one is drawn on top of the rest. </br>
- * aligning of components horizontal or vertical and left or right.</br>
+ * after expanding it give some possibilities to set value or so.<br>  
+ * TODO:<br>
+ * flyout at bottom and top.<br> 
+ * flyout self adopting <br>
+ * something like a flyout menu group with an equal gravity and the opend one is drawn on top of the rest. <br>
+ * aligning of components horizontal or vertical and left or right.<br>
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
  * @since 23.02.2015

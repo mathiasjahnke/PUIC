@@ -11,15 +11,12 @@ import processing.core.PFont;
  * a simple radio button for using with <a href="http://www.processing.org">processing</a>.
  * within the radiobutton the padding is always 0. The components width and height include the padding but mot the margins
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
- * @version 0.0.1
+ * @version 0.0.2
  * @since 12.02.2015
  */
-public class PRadioButton implements PIButton, PIComponent{
+public class PRadioButton extends PButtonComponent{
 	
 	private PApplet p;
-	
-	private float x;
-	private float y;
 	
 	private String text;
 	private PFont textFont;
@@ -30,8 +27,6 @@ public class PRadioButton implements PIButton, PIComponent{
 	private int fillColor;
 	private int fillColorMarked;
 	private int textColor;
-	
-	private boolean checked;
 	
 	//width and height of the whole component including the graphic and the text
 	private float componentWidth;
@@ -57,13 +52,13 @@ public class PRadioButton implements PIButton, PIComponent{
 	 * @param p the applet to draw on
 	 */
 	public PRadioButton(float x, float y, float radius, String text, PApplet p){
-		this.x = x;
-		this.y = y;
+		super();
+		setLocation(x, y);
 		this.text = text;
 		this.p = p;
 		
 		this.radius = radius;
-		this.checked = false;
+		this.setChecked(false);
 		this.textFont = this.p.createFont("Arial", 14, true);
 		
 		this.strokeColor = p.color(0);
@@ -78,6 +73,8 @@ public class PRadioButton implements PIButton, PIComponent{
 			this.componentHeight = this.p.textAscent() + this.p.textDescent();
 		}
 		this.componentWidth = this.p.textWidth(this.text) + radius + (this.componentHeight * 0.4f);
+		
+		setSize(componentWidth, componentHeight);
 		
 		this.paddingTop = 0;
 		this.paddingRight = 0;
@@ -98,15 +95,14 @@ public class PRadioButton implements PIButton, PIComponent{
 	 * @param p the {@code PApplet}
 	 */
 	public PRadioButton(float radius, String text, PApplet p){
-		
+		super();
 		this.text = text;
 		this.p = p;
 		
-		this.x = p.width/2;
-		this.y = p.height/2;
+		setLocation(p.width / 2, p.height / 2);
 		
 		this.radius = radius;
-		this.checked = false;
+		this.setChecked(false);
 		this.textFont = this.p.createFont("Arial", 14, true);
 		
 		this.strokeColor = p.color(0);
@@ -122,6 +118,8 @@ public class PRadioButton implements PIButton, PIComponent{
 		}
 		this.componentWidth = this.p.textWidth(this.text) + radius + (this.componentHeight * 0.4f) + paddingLeft + paddingRight;
 	
+		setSize(componentWidth, componentHeight);
+		
 		this.paddingTop = 0;
 		this.paddingRight = 0;
 		this.paddingBottom = 0;
@@ -133,132 +131,71 @@ public class PRadioButton implements PIButton, PIComponent{
 		this.marginLeft = 6;
 	}
 	
-	/**
-	 * convenience function for flyout menu
-	 * @param x 
-	 * @param y
-	 */
-	public void setLocation(float x, float y){
-		this.x = x;
-		this.y = y;
-	}
-	
-	/**
-	 * Resizes the component.
-	 * @param width the new width to set.
-	 * @param height the new height to set.
-	 */
-	public void setSize(float width, float height){
-		this.componentWidth = width;
-		this.componentHeight = height;
-	}
-	
-	/**
-	 * can be set via mouseClicked() function to indicate if the button is checked (marked)
-	 * @param checked boolean true if checked otherwise false
-	 */
-	@Override
-	public void setChecked(boolean checked){
-		//setChanged();
-		this.checked = checked;
-		//notifyObservers(this);
-	}
-	
-	/**
-	 * queries the status of the radio button
-	 * @return boolean true if checked otherwise false
-	 */
-	@Override
-	public boolean isChecked(){
-		return this.checked;
-	}
-	
-	/**
-	 * 
-	 */
-	public void toggleChecked(){
-		//setChanged();
-		if(this.checked){
-			this.checked = false;
-		}else{
-			this.checked = true;
-		}
-		//notifyObservers(this);
-	}
 	
 	/**
 	 * draw the radio button.
 	 * if the button is checked the button is drawn with a dot inside
 	 */
-	public void draw(){
-		if(this.checked == false){
-			p.ellipseMode(PConstants.RADIUS);
-			p.strokeWeight(1);
-			p.fill(fillColor);
-			p.stroke(strokeColor);
-			p.ellipse(x, y, radius, radius);
-		}else{
-			p.ellipseMode(PConstants.RADIUS);
-			p.strokeWeight(1);
-			p.fill(fillColor);
-			p.stroke(strokeColor);
-			p.ellipse(x, y, radius, radius);
-			p.ellipseMode(PConstants.CENTER);
-			p.fill(fillColorMarked);
-			p.ellipse(x, y, radius, radius);
-		}
-		//draw label
-		p.textFont(textFont);
-		p.textAlign(PConstants.LEFT, PConstants.CENTER);
-		p.fill(textColor);
-		p.text(text, x + radius + (this.componentHeight*0.4f), y - 1);
-	}
-	
-	/**
-	 * draws the radio button on the specified location.
-	 * can be used in PExpandableMenu 
-	 * @param x the x location of the radiobutton
-	 * @param y the y location of the radiobutton
-	 */
-	@Deprecated
-	public void draw(float x, float y){
-		if(this.checked == false){
-			p.ellipseMode(PConstants.RADIUS);
-			p.strokeWeight(1);
-			p.fill(fillColor);
-			p.stroke(strokeColor);
-			p.ellipse(x, y, radius, radius);
-		}else{
-			p.ellipseMode(PConstants.RADIUS);
-			p.strokeWeight(1);
-			p.fill(fillColor);
-			p.stroke(strokeColor);
-			p.ellipse(x, y, radius, radius);
-			p.ellipseMode(PConstants.CENTER);
-			p.fill(fillColorMarked);
-			p.ellipse(x, y, radius, radius);
-		}
-		//draw label
-		p.textFont(textFont);
-		p.textAlign(PConstants.LEFT, PConstants.CENTER);
-		p.fill(textColor);
-		p.text(text, x + radius + 6, y - 2);
-	}
-	
-	/**
-	 * if e.g. the mouse is inside the radio button area or not
-	 * @param x
-	 * @param y
-	 * @return true if inside otherwise false
-	 */
 	@Override
-	public boolean isInside(float x, float y){
-		if(PApplet.dist(this.x, this.y, x, y) < this.radius){
-			return true;
+	public void draw(){
+		if(isChecked() == false){
+			p.ellipseMode(PConstants.RADIUS);
+			p.strokeWeight(1);
+			p.fill(fillColor);
+			p.stroke(strokeColor);
+			//ellipse(x, y, radius, radius);
+			p.ellipse(getX(), getY(), radius, radius);
 		}else{
-			return false;
+			p.ellipseMode(PConstants.RADIUS);
+			p.strokeWeight(1);
+			p.fill(fillColor);
+			p.stroke(strokeColor);
+			//p.ellipse(x, y, radius, radius);
+			p.ellipse(getX(), getY(), radius, radius);
+			p.ellipseMode(PConstants.CENTER);
+			p.fill(fillColorMarked);
+			//p.ellipse(x, y, radius, radius);
+			p.ellipse(getX(), getY(), radius, radius);
 		}
+		//draw label
+		p.textFont(textFont);
+		p.textAlign(PConstants.LEFT, PConstants.CENTER);
+		p.fill(textColor);
+		//p.text(text, x + radius + (this.componentHeight*0.4f), y - 1);
+		p.text(text, getX() + radius + (getHeight() * 0.4f), getY() - 1);
 	}
+	
+//	/**
+//	 * draws the radio button on the specified location.
+//	 * can be used in PExpandableMenu 
+//	 * @param x the x location of the radiobutton
+//	 * @param y the y location of the radiobutton
+//	 */
+//	@Deprecated
+//	public void draw(float x, float y){
+//		if(isChecked() == false){
+//			p.ellipseMode(PConstants.RADIUS);
+//			p.strokeWeight(1);
+//			p.fill(fillColor);
+//			p.stroke(strokeColor);
+//			p.ellipse(x, y, radius, radius);
+//		}else{
+//			p.ellipseMode(PConstants.RADIUS);
+//			p.strokeWeight(1);
+//			p.fill(fillColor);
+//			p.stroke(strokeColor);
+//			p.ellipse(x, y, radius, radius);
+//			p.ellipseMode(PConstants.CENTER);
+//			p.fill(fillColorMarked);
+//			p.ellipse(x, y, radius, radius);
+//		}
+//		//draw label
+//		p.textFont(textFont);
+//		p.textAlign(PConstants.LEFT, PConstants.CENTER);
+//		p.fill(textColor);
+//		p.text(text, x + radius + 6, y - 2);
+//	}
+	
 	
 	/**
 	 * if e.g. the mouse is inside the radio button area or not.
@@ -268,35 +205,22 @@ public class PRadioButton implements PIButton, PIComponent{
 	 * @return true if inside otherwise false
 	 */
 	public boolean contains(float x, float y){
-		if(PApplet.dist(this.x, this.y, x, y) < this.radius){
+		if(PApplet.dist(getX(), getY(), x, y) < this.radius){
+			//System.out.println("contains: PRadioButton: " + getComponentId());
 			return true;
 		}else{
 			return false;
 		}
 	}
 	
-	/**
-	 * returns the current x coordinate of the radioButtons origin.
-	 */
-	public float getX(){
-		return this.x;
-	}
-	
-	/**
-	 * returns the current y coordinate of the radioButtons origin.
-	 */
-	public float getY(){
-		return this.y;
-	}
 	
 	/**
 	 * sets the styling. 
 	 * in the main applet the color has to be set via color(grayValue) or color(red, green, blue) etc.
 	 * 
 	 * @param strokeColor the color of the outline stroke.
-	 * @param strokeColorHighlight the color of the outline stroke if marked
 	 * @param fillColor the fill color
-	 * @param fillColorHighlight the fill color if marked
+	 * @param fillColorMarked the fill color if marked
 	 */
 	public void setStyling(int strokeColor, int fillColor, int fillColorMarked){
 		this.strokeColor = strokeColor;
@@ -309,7 +233,6 @@ public class PRadioButton implements PIButton, PIComponent{
 	 * in the main applet the color has to be set via color(grayValue) or color(red, green, blue) etc.
 	 * the textFont can be null.
 	 * @param textColor the text color 
-	 * @param textColorHighlight the text color if marked
 	 * @param textFont the font of the text
 	 */
 	public void setTextStyling(int textColor, PFont textFont){
@@ -320,32 +243,6 @@ public class PRadioButton implements PIButton, PIComponent{
 		
 	}
 	
-	/**
-	 * returns the PRadioButton text
-	 * @return the text as string
-	 */
-	@Override
-	public String getText(){
-		return this.text;
-	}
-	
-	/**
-	 * returns the components height. Based on the text length and the radius
-	 * @return the components width
-	 */
-	@Override
-	public float getWidth(){
-		return this.componentWidth;
-	}
-	
-	/**
-	 * returns the components width. based on the text height or the radius
-	 * @return the components height
-	 */
-	@Override
-	public float getHeight(){
-		return this.componentHeight;
-	}
 
 	public void setMargin(float top, float right, float bottom, float left) {
 		this.marginTop = top;
@@ -393,10 +290,4 @@ public class PRadioButton implements PIButton, PIComponent{
 		this.paddingBottom = 0;
 		this.paddingLeft = 0;
 	}
-	
-	public UUID getComponentId(){
-		UUID a = UUID.randomUUID();
-		return a;
-	}
-
 }

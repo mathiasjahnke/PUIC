@@ -25,7 +25,7 @@ public class PSlider {
 	private float value;
 	
 	/**
-	 * Standard constructor </br>
+	 * Standard constructor <br>
 	 * <b>do nut use</b>
 	 */
 	public PSlider(){

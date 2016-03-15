@@ -5,7 +5,7 @@ import processing.core.PApplet;
 //http://www.creativeapplications.net/processing/craft-your-processing-sketches-in-eclipse/
 /**
  * a table class to use within processing and processing js.
- * based on the table class from ben fry and ceasy reas out of their book "Visualizing Data" (OReilly)</br></br>
+ * based on the table class from ben fry and ceasy reas out of their book "Visualizing Data" (OReilly)<br> <br>
  * to make a processing class JavaScript compatible see at <a href="http://forum.processing.org/one/topic/table-class-in-processingjs.html">how to make the table JavaScript compatible</a>
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Department of Cartography</a>
  * @version 0.0.2
@@ -29,7 +29,8 @@ public class Table {
 	/**
 	 * parameterized constructor. To load the table from data of a tsv (tab seperated file) 
 	 * file. TODO extend to csv (comma separated files)
-	 * @param filename the filename (absolute, relative or url from whre to load the file
+	 * @param filename the filename (absolute, relative or url from where to load the file
+	 * @param applet the applet to draw on
 	 */
 	public Table(PApplet applet, String filename) {
 		

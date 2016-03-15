@@ -7,8 +7,8 @@ import processing.core.PFont;
 
 /**
  * a simple button class to use within <a href="http://www.processing.org">processing</a>.
- * action handling should by done via the e.g. mouseClicked() functions etc. </br>
- * at the moment the button does not adjust themself to the caption (text) </br>
+ * action handling should by done via the e.g. mouseClicked() functions etc. <br>
+ * at the moment the button does not adjust themself to the caption (text) <br>
  * 
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.2
@@ -49,7 +49,7 @@ public class PButton implements PIButton{
 	private String text;
 
 	/**
-	 * default constructor </br>
+	 * default constructor <br>
 	 * should not be used!
 	 */
 	public PButton() {
@@ -474,7 +474,7 @@ public class PButton implements PIButton{
 	
 	/**
 	 * sets the color for the button text.
-	 * If not called default values are used. </br>
+	 * If not called default values are used. <br>
 	 * Differentiates between a color and a color if the button is clicked or used as a toggle button
 	 * @param textColor
 	 * @param textColorHighlight

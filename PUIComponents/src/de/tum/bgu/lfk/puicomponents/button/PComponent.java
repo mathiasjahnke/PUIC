@@ -1,15 +1,11 @@
 package src.de.tum.bgu.lfk.puicomponents.button;
 
-import java.util.Observable;
 import java.util.UUID;
 
-import processing.core.PApplet;
-import processing.core.PConstants;
-
 /**
- * 
  * A components base-class implementing the respective interface (PIComponent). The components origin is the components upper 
- * left corner. </br> No styling associated with the component.   
+ * left corner. <br> No styling associated with the component.  <br>
+ * the PComponents draw()-methods must be overriden by a class extending this one.  
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
  * @since 07.03.2016
@@ -24,22 +20,11 @@ public class PComponent implements PIComponent {
 	
 	private UUID componentId;
 	
-	private PApplet p;
-	
 	/**
-	 * default constructor. </br>
+	 * default constructor. <br>
 	 * only for unique id's in inheritance
 	 */
 	public PComponent(){
-		this.componentId = UUID.randomUUID();
-	}
-	
-	/**
-	 * parameterized constructor
-	 * @param p the PApplet to draw on
-	 */
-	public PComponent(PApplet p) {
-		this.p = p;
 		this.componentId = UUID.randomUUID();
 	}
 	
@@ -100,12 +85,13 @@ public class PComponent implements PIComponent {
 		return this.y;
 	}
 
-	@Override
+
 	/**
 	 * Sets the component's origin to the new coordinates x and y.
 	 * @param x the new x coordinate of the component's origin.
 	 * @param y the new y coordinate of the component's origin.
 	 */
+	@Override
 	public void setLocation(float x, float y) {
 		this.x = x;
 		this.y = y;
@@ -124,24 +110,19 @@ public class PComponent implements PIComponent {
 		if((x > this.x) && (x < this.x + this.width)){
 			if((y > this.y) && (y < this.y + this.height)){
 				rv = true;
+				//System.out.println("contains: PComponent");
 			}
 		}
 		return rv;
 	}
 
-	@Override
+
 	/**
-	 * Raw or rudimentary implementation of the components draw()-function. The styling is set to a rectangle 
-	 * with black border and white area. To change the styling the method needs to be overridden by a derived class. </br></br>
-	 * The method assumes rectMode() to be set to its default value (CORNER). Therefore the method needs to 
-	 * be overridden/implemented by a derived class if rectMode() should be set to CORNERS, CENTER or RADIUS. 
-	 * 
+	 * the base class draw() method is not implemented and has to be overridden by any subclass.<br><br>
 	 */
+	@Override
 	public void draw() {	
-		p.rectMode(PConstants.CORNER);
-		p.fill(0);
-		p.stroke(255);
-		p.rect(x, y, width, height);
+		System.out.println("no draw method implemented for PComponent: (" + componentId + ")");
 
 	}
 

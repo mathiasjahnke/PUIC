@@ -4,36 +4,38 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.UUID;
 
 /**
- * The PRadioButtonGroup is for logical structuring of the PRadioButtons.
- * only one memeber of the group can be marked at a time. 
+ * The PButtonGroup is for logical structuring of the PRadioButtons or PButtons.
+ * Only one memeber of the group can be marked at a time. 
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
  * @since 23.02.2015
  */
 public class PButtonGroup implements MouseListener{
 
-	private ArrayList<PIButton> components;
+	private ArrayList<PButtonComponent> components;
 	
-	private String nameOfMarked;
+	private UUID nameOfMarkedUUID;
+	
 	
 	/**
 	 * initializes the PRadioButtonGroup
 	 */
 	public PButtonGroup(){
-		this.components = new ArrayList<PIButton>();
-		//indexOfMarked = 0;
-		nameOfMarked = "";
+		this.components = new ArrayList<PButtonComponent>();
+		nameOfMarkedUUID = null;
 	}
 	
 	/**
 	 * adds components to the PRadioButtonGroup.
 	 * @param component the PRadioButton to add
 	 */
-	public void add(PIButton component){
+	public void add(PButtonComponent component){
 		if(component.isChecked()){
-			this.nameOfMarked = component.getText();
+			this.nameOfMarkedUUID = component.getComponentId();
+			//System.out.println("add: " + nameOfMarkedUUID);
 		}
 		this.components.add(component);
 	}
@@ -50,13 +52,13 @@ public class PButtonGroup implements MouseListener{
 	/**
 	 * Wrapping the ArrayList.remove()
 	 * removes the PRadiobutton with the specified name.
-	 * @param name the name of the component to remove
+	 * @param id the uuid of the component to remove
 	 */
-	public void remove(String name){
-		Iterator<PIButton> iter = this.components.iterator();
+	public void remove(UUID id){
+		Iterator<PButtonComponent> iter = this.components.iterator();
 		while(iter.hasNext()){
-			PIButton rb = (PIButton) iter.next();
-			if(rb.getText() == name){
+			PButtonComponent rb = (PButtonComponent) iter.next();
+			if(rb.getComponentId().compareTo(id) == 0){
 				this.components.remove(rb);
 			}
 		}
@@ -76,7 +78,6 @@ public class PButtonGroup implements MouseListener{
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -85,7 +86,6 @@ public class PButtonGroup implements MouseListener{
 	 */
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -94,16 +94,14 @@ public class PButtonGroup implements MouseListener{
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		Iterator<PIButton> iter = components.iterator();
+		Iterator<PButtonComponent> iter = components.iterator();
 		while(iter.hasNext()){
-			PIButton rb = (PIButton) iter.next();
-			if(rb.isInside(e.getX(), e.getY())){
-				nameOfMarked = rb.getText();
+			PButtonComponent rb = (PButtonComponent) iter.next();
+			if(rb.contains(e.getX(), e.getY())){
+				this.nameOfMarkedUUID = rb.getComponentId();
 			}
 		}
 		updateComponents();
-		
 	}
 
 	/**
@@ -111,7 +109,6 @@ public class PButtonGroup implements MouseListener{
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -120,7 +117,6 @@ public class PButtonGroup implements MouseListener{
 	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -128,10 +124,10 @@ public class PButtonGroup implements MouseListener{
 	 * updates the components only one per PRadioButtonGroup can be marked
 	 */
 	private void updateComponents(){
-		Iterator<PIButton> iter = this.components.iterator();
+		Iterator<PButtonComponent> iter = this.components.iterator();
 		while(iter.hasNext()){
-			PIButton rb = (PIButton) iter.next();
-			if(rb.getText() == this.nameOfMarked){
+			PButtonComponent rb = (PButtonComponent) iter.next();
+			if(rb.getComponentId().equals(nameOfMarkedUUID)){
 				rb.setChecked(true);
 			}else{
 				rb.setChecked(false);
