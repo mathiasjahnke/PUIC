@@ -342,10 +342,11 @@ public class LineChart {
 
 	/**
 	 * to set the styling for the dots/circles representing the data
-	 * standard values are set with the paraemterized constructor
+	 * standard values are set with the parameterized constructor
 	 * @param dataColor background color of the dots/circles
 	 * @param dataOutline if every data dot/circle should have an outline
 	 * @param dataOutlineColor the color for the outline
+	 * @param dataCircleRadius the radius of the data points
 	 */
 	public void setDataStyling(int dataColor, boolean dataOutline, int dataOutlineColor, int dataCircleRadius){
 		this.dataColor = dataColor;

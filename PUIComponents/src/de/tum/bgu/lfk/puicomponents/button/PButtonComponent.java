@@ -8,7 +8,7 @@ package src.de.tum.bgu.lfk.puicomponents.button;
  * @since 15.03.2016
  *
  */
-public class PButtonComponent extends PComponent{
+public class PButtonComponent extends PComponent implements PIButtonComponent{
 	
 	private boolean checked;
 	
@@ -23,6 +23,7 @@ public class PButtonComponent extends PComponent{
 	 * sets if the component is checked/marked. 
 	 * @param checked true if marked otherwise false
 	 */
+	@Override
 	public void setChecked(boolean checked){
 		this.checked = checked;
 	}
@@ -31,13 +32,15 @@ public class PButtonComponent extends PComponent{
 	 * retrieves if the component is checked or not.
 	 * @return true if checked otherwise false
 	 */
+	@Override
 	public boolean isChecked(){
 		return this.checked;
 	}
 	
 	/**
-	 * toggle the status of checked from checked (true) to not checked (false)and the other way round.
+	 * toggles component's status from checked (true) to not checked (false) and the other way round.
 	 */
+	@Override
 	public void toggleChecked(){
 		if(this.checked){
 			this.checked = false;

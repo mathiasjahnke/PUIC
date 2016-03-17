@@ -48,6 +48,7 @@ public class PRadioButton extends PButtonComponent{
 	 * 
 	 * @param x x location of the radio button
 	 * @param y y location of the radio button
+	 * @param radius the radius of the radio button
 	 * @param text label of the radio button
 	 * @param p the applet to draw on
 	 */
@@ -200,8 +201,8 @@ public class PRadioButton extends PButtonComponent{
 	/**
 	 * if e.g. the mouse is inside the radio button area or not.
 	 * the same like is inside(float x, float y) but with regard to PComponent.
-	 * @param x
-	 * @param y
+	 * @param x the x value of the radio buttons location
+	 * @param y the y value of the radio buttons location
 	 * @return true if inside otherwise false
 	 */
 	public boolean contains(float x, float y){

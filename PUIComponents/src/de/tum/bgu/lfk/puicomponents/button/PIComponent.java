@@ -65,25 +65,6 @@ public interface PIComponent {
 	public boolean contains(float x, float y);
 	
 	
-/*	/**
-	 * sets the margin for the component. (according to css)
-	 * @param top margin
-	 * @param right margin
-	 * @param bottom margin
-	 * @param left margin
-	 */
-//	public void setMargin(float top, float right, float bottom, float left);
-	
-/*	/**
-	 * sets the padding for the component. (According to CSS)
-	 * @param top padding
-	 * @param right padding
-	 * @param bottom padding
-	 * @param left padding
-	 */
-//	public void setPadding(float top, float right, float bottom, float left);
-	
-	
 	/**
 	 * returns the component's unique id.
 	 * @return the component's unique id. 

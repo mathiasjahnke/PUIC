@@ -1,19 +1,13 @@
 package src.de.tum.bgu.lfk.puicomponents.button;
 
 /**
- * the Interface to handle different buttons in the PButtonGroup class
+ * the interface to extend the PComponent with some status information
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
  * @version 0.0.1
- * @since 02.03.2015
+ * @since 17.03.2016
  *
  */
-public interface PIButton {
-	
-	/**
-	 * retrieves the buttons name
-	 * @return
-	 */
-	public String getText();
+public interface PIButtonComponent {
 	
 	/**
 	 * sets then status of the button
@@ -28,11 +22,8 @@ public interface PIButton {
 	public boolean isChecked();
 	
 	/**
-	 * checks whether a point is inside the button or not
-	 * @param x the x coordinate of the point to check
-	 * @param y the y coordinate of the point to check
-	 * @return true if the point x, y are falling inside
+	 * toggles component's status from checked (true) to not checked (false) and the other way round.
 	 */
-	public boolean isInside(float x, float y);
+	public void toggleChecked();
 
 }

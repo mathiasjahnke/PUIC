@@ -121,7 +121,7 @@ public class PFlyoutMenu implements MouseListener{
 	
 	/**
 	 * to set the cornerRadius of the handle
-	 * @param cornerRadius
+	 * @param cornerRadius the corner radius of the flyout menu
 	 */
 	public void setCornerRadius(float cornerRadius){
 		this.cornerRadius = cornerRadius;

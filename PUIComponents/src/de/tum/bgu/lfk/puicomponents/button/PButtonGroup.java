@@ -69,7 +69,7 @@ public class PButtonGroup implements MouseListener{
 	 * removes the specified PRadioButton
 	 * @param component the PRadiobutton to remove
 	 */
-	public void remove(PIButton component){
+	public void remove(PIButtonComponent component){
 		this.components.remove(component);
 	}
 	

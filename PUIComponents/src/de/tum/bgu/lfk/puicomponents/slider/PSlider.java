@@ -53,7 +53,7 @@ public class PSlider {
 	
 	/**
 	 * 
-	 * @param maximum
+	 * @param maximum the maximum value
 	 */
 	public void setMaximum(float maximum){
 		this.maximum = maximum;
@@ -61,7 +61,7 @@ public class PSlider {
 	
 	/**
 	 * 
-	 * @param minimum
+	 * @param minimum the minimum value
 	 */
 	public void setMinimum(float minimum){
 		this.minimum = minimum;
@@ -69,7 +69,7 @@ public class PSlider {
 	
 	/**
 	 * set the initial value of the slider position
-	 * @param value
+	 * @param value the current value
 	 */
 	public void setValue(float value){
 		this.value = value;
