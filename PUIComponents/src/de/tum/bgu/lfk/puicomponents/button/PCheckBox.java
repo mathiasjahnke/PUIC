@@ -1,6 +1,6 @@
 package src.de.tum.bgu.lfk.puicomponents.button;
 
-import src.de.tum.bgu.lfk.puicomponents.constants.CheckBoxOptions;
+import src.de.tum.bgu.lfk.puicomponents.constants.UIConstants;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PFont;
@@ -14,14 +14,15 @@ import processing.core.PFont;
  * @version 0.0.1
  * @since 04.07.2014
  */
-public class PCheckBox extends PButtonComponent{
+public class PCheckBox extends PButtonComponent implements UIConstants{
 	
 	private PApplet p;
 	
 	private String label;
 	private PFont labelFont; 
 	
-	private CheckBoxOptions markerSymbol;
+	//private CheckBoxOptions markerSymbol;
+	private int markerSymbol;
 	
 	
 	/**
@@ -51,7 +52,8 @@ public class PCheckBox extends PButtonComponent{
 		this.labelFont = this.p.createFont("Arial", 14, true);
 		//this.checked = false;
 		this.setChecked(false);
-		this.markerSymbol = CheckBoxOptions.TICKMARK;
+		//this.markerSymbol = CheckBoxOptions.TICKMARK;
+		this.markerSymbol = TICKMARK;
 	}
 	
 	
@@ -59,7 +61,8 @@ public class PCheckBox extends PButtonComponent{
 	 * to set the marker symbol as tickmark or cross. 
 	 * @param markerSymbol TICKMARK or CROSS depending on which marker symbol should be used
 	 */
-	public void setMarkerSymbol(CheckBoxOptions markerSymbol){
+	//public void setMarkerSymbol(CheckBoxOptions markerSymbol){
+	public void setMarkerSymbol(int markerSymbol){
 		this.markerSymbol = markerSymbol;
 	}
 
