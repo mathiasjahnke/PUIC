@@ -8,14 +8,14 @@ import java.util.UUID;
 
 /**
  * The PButtonGroup is for logical structuring of the PRadioButtons or PButtons.
- * Only one memeber of the group can be marked at a time. 
+ * Only one member of the group can be marked/checked at a time. 
  * @author Mathias Jahnke, Technische Universit&auml;t M&uuml;nchen, <a href="http://www.lfk.bgu.tum.de">Chair of Cartography</a>
- * @version 0.0.1
+ * @version 0.0.2
  * @since 23.02.2015
  */
 public class PButtonGroup implements MouseListener{
 
-	private ArrayList<PButtonComponent> components;
+	private ArrayList<PIButtonComponent> components;
 	
 	private UUID nameOfMarkedUUID;
 	
@@ -24,7 +24,7 @@ public class PButtonGroup implements MouseListener{
 	 * initializes the PRadioButtonGroup
 	 */
 	public PButtonGroup(){
-		this.components = new ArrayList<PButtonComponent>();
+		this.components = new ArrayList<PIButtonComponent>();
 		nameOfMarkedUUID = null;
 	}
 	
@@ -32,7 +32,7 @@ public class PButtonGroup implements MouseListener{
 	 * adds components to the PRadioButtonGroup.
 	 * @param component the PRadioButton to add
 	 */
-	public void add(PButtonComponent component){
+	public void add(PIButtonComponent component){
 		if(component.isChecked()){
 			this.nameOfMarkedUUID = component.getComponentId();
 			//System.out.println("add: " + nameOfMarkedUUID);
@@ -55,9 +55,9 @@ public class PButtonGroup implements MouseListener{
 	 * @param id the uuid of the component to remove
 	 */
 	public void remove(UUID id){
-		Iterator<PButtonComponent> iter = this.components.iterator();
+		Iterator<PIButtonComponent> iter = this.components.iterator();
 		while(iter.hasNext()){
-			PButtonComponent rb = (PButtonComponent) iter.next();
+			PIButtonComponent rb = (PIButtonComponent) iter.next();
 			if(rb.getComponentId().compareTo(id) == 0){
 				this.components.remove(rb);
 			}
@@ -94,9 +94,9 @@ public class PButtonGroup implements MouseListener{
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		Iterator<PButtonComponent> iter = components.iterator();
+		Iterator<PIButtonComponent> iter = components.iterator();
 		while(iter.hasNext()){
-			PButtonComponent rb = (PButtonComponent) iter.next();
+			PIButtonComponent rb = (PIButtonComponent) iter.next();
 			if(rb.contains(e.getX(), e.getY())){
 				this.nameOfMarkedUUID = rb.getComponentId();
 			}
@@ -124,9 +124,9 @@ public class PButtonGroup implements MouseListener{
 	 * updates the components only one per PRadioButtonGroup can be marked
 	 */
 	private void updateComponents(){
-		Iterator<PButtonComponent> iter = this.components.iterator();
+		Iterator<PIButtonComponent> iter = this.components.iterator();
 		while(iter.hasNext()){
-			PButtonComponent rb = (PButtonComponent) iter.next();
+			PIButtonComponent rb = (PIButtonComponent) iter.next();
 			if(rb.getComponentId().equals(nameOfMarkedUUID)){
 				rb.setChecked(true);
 			}else{

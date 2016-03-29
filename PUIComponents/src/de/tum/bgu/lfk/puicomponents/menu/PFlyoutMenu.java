@@ -32,6 +32,7 @@ public class PFlyoutMenu implements MouseListener{
 	
 	private float width;
 	private float height;
+	
 	private float handleWidth;
 	private float handleHeight;
 	
@@ -51,7 +52,7 @@ public class PFlyoutMenu implements MouseListener{
 	
 	/**
 	 * constructs an flyout menu which is self adopting to the size of added components. 
-	 * the default gravity is set to RIGHT.
+	 * the default gravity is set to RIGHT. The cornerRadius of the component is initially set to 3.
 	 * @param x the x position used if gravity is set to TOP or BOTTOM
 	 * @param y the y position used if gravity is set to LEFT or RIGHT
 	 * @param width the initial width of the flyout menu
@@ -72,7 +73,7 @@ public class PFlyoutMenu implements MouseListener{
 		
 		this.stroke = p.color(150);
 		this.fill = p.color(200);
-		this.cornerRadius = 6;
+		this.cornerRadius = 3;
 		this.handleWidth = 20;
 		this.handleHeight = 30;
 		

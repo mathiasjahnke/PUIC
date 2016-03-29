@@ -7,7 +7,7 @@ package src.de.tum.bgu.lfk.puicomponents.button;
  * @since 17.03.2016
  *
  */
-public interface PIButtonComponent {
+public interface PIButtonComponent extends PIComponent{
 	
 	/**
 	 * sets then status of the button

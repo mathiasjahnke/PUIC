@@ -1,8 +1,5 @@
 package src.de.tum.bgu.lfk.puicomponents.button;
 
-import java.util.Observable;
-import java.util.UUID;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PFont;
@@ -18,8 +15,8 @@ public class PRadioButton extends PButtonComponent{
 	
 	private PApplet p;
 	
-	private String text;
-	private PFont textFont;
+	private String label;
+	private PFont labelFont;
 	
 	private float radius;
 	
@@ -55,12 +52,12 @@ public class PRadioButton extends PButtonComponent{
 	public PRadioButton(float x, float y, float radius, String text, PApplet p){
 		super();
 		setLocation(x, y);
-		this.text = text;
+		this.label = text;
 		this.p = p;
 		
 		this.radius = radius;
 		this.setChecked(false);
-		this.textFont = this.p.createFont("Arial", 14, true);
+		this.labelFont = this.p.createFont("Arial", 14, true);
 		
 		this.strokeColor = p.color(0);
 		this.fillColor = p.color(255);
@@ -73,7 +70,7 @@ public class PRadioButton extends PButtonComponent{
 		}else{
 			this.componentHeight = this.p.textAscent() + this.p.textDescent();
 		}
-		this.componentWidth = this.p.textWidth(this.text) + radius + (this.componentHeight * 0.4f);
+		this.componentWidth = this.p.textWidth(this.label) + radius + (this.componentHeight * 0.4f);
 		
 		setSize(componentWidth, componentHeight);
 		
@@ -97,14 +94,14 @@ public class PRadioButton extends PButtonComponent{
 	 */
 	public PRadioButton(float radius, String text, PApplet p){
 		super();
-		this.text = text;
+		this.label = text;
 		this.p = p;
 		
 		setLocation(p.width / 2, p.height / 2);
 		
 		this.radius = radius;
 		this.setChecked(false);
-		this.textFont = this.p.createFont("Arial", 14, true);
+		this.labelFont = this.p.createFont("Arial", 14, true);
 		
 		this.strokeColor = p.color(0);
 		this.fillColor = p.color(255);
@@ -117,7 +114,7 @@ public class PRadioButton extends PButtonComponent{
 		}else{
 			this.componentHeight = this.p.textAscent() + this.p.textDescent() + paddingTop + paddingBottom;
 		}
-		this.componentWidth = this.p.textWidth(this.text) + radius + (this.componentHeight * 0.4f) + paddingLeft + paddingRight;
+		this.componentWidth = this.p.textWidth(this.label) + radius + (this.componentHeight * 0.4f) + paddingLeft + paddingRight;
 	
 		setSize(componentWidth, componentHeight);
 		
@@ -159,43 +156,12 @@ public class PRadioButton extends PButtonComponent{
 			p.ellipse(getX(), getY(), radius, radius);
 		}
 		//draw label
-		p.textFont(textFont);
+		p.textFont(labelFont);
 		p.textAlign(PConstants.LEFT, PConstants.CENTER);
 		p.fill(textColor);
 		//p.text(text, x + radius + (this.componentHeight*0.4f), y - 1);
-		p.text(text, getX() + radius + (getHeight() * 0.4f), getY() - 1);
+		p.text(label, getX() + radius + (getHeight() * 0.4f), getY() - 1);
 	}
-	
-//	/**
-//	 * draws the radio button on the specified location.
-//	 * can be used in PExpandableMenu 
-//	 * @param x the x location of the radiobutton
-//	 * @param y the y location of the radiobutton
-//	 */
-//	@Deprecated
-//	public void draw(float x, float y){
-//		if(isChecked() == false){
-//			p.ellipseMode(PConstants.RADIUS);
-//			p.strokeWeight(1);
-//			p.fill(fillColor);
-//			p.stroke(strokeColor);
-//			p.ellipse(x, y, radius, radius);
-//		}else{
-//			p.ellipseMode(PConstants.RADIUS);
-//			p.strokeWeight(1);
-//			p.fill(fillColor);
-//			p.stroke(strokeColor);
-//			p.ellipse(x, y, radius, radius);
-//			p.ellipseMode(PConstants.CENTER);
-//			p.fill(fillColorMarked);
-//			p.ellipse(x, y, radius, radius);
-//		}
-//		//draw label
-//		p.textFont(textFont);
-//		p.textAlign(PConstants.LEFT, PConstants.CENTER);
-//		p.fill(textColor);
-//		p.text(text, x + radius + 6, y - 2);
-//	}
 	
 	
 	/**
@@ -239,7 +205,7 @@ public class PRadioButton extends PButtonComponent{
 	public void setTextStyling(int textColor, PFont textFont){
 		this.textColor = textColor;
 		if(textFont != null){
-			this.textFont = textFont;
+			this.labelFont = textFont;
 		}
 		
 	}

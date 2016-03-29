@@ -18,8 +18,8 @@ public class PCheckBox extends PButtonComponent{
 	
 	private PApplet p;
 	
-	private String text;
-	private PFont textFont; 
+	private String label;
+	private PFont labelFont; 
 	
 	private CheckBoxOptions markerSymbol;
 	
@@ -47,8 +47,8 @@ public class PCheckBox extends PButtonComponent{
 		this.setLocation(x, y);
 		//this.checkBoxSize = checkBoxSize;
 		this.setSize(checkBoxSize, checkBoxSize);
-		this.text = label;
-		this.textFont = this.p.createFont("Arial", 14, true);
+		this.label = label;
+		this.labelFont = this.p.createFont("Arial", 14, true);
 		//this.checked = false;
 		this.setChecked(false);
 		this.markerSymbol = CheckBoxOptions.TICKMARK;
@@ -92,9 +92,9 @@ public class PCheckBox extends PButtonComponent{
 		p.rectMode(PConstants.CENTER);
 		//draw the box and the label
 		p.textAlign(PConstants.LEFT, PConstants.CENTER);
-		p.textFont(this.textFont);
+		p.textFont(this.labelFont);
 		p.fill(0);
-		p.text(text, getX() + this.getWidth()/2 + 5, getY() - 2);
+		p.text(label, getX() + this.getWidth()/2 + 5, getY() - 2);
 
 		p.fill(255);
 		p.strokeWeight(1);
